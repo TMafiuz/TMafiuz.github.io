@@ -1,306 +1,490 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explorando el Universo</title>
-    <link rel="shortcut icon" href="./images/favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/estilos.css">
+    <title>Calculadora IMC con IA - Análisis Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <meta name="theme-color" content="#2091F9">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
 
-    <meta name="title" content="Descubre el Universo">
-    <meta name="description"
-        content="Aventúrate a explorar los misterios del cosmos y los secretos del universo más allá de nuestro planeta.">
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
 
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://exploraeluniverso.com">
-    <meta property="og:title" content="Descubre el Universo">
-    <meta property="og:description"
-        content="Aventúrate a explorar los misterios del cosmos y los secretos del universo más allá de nuestro planeta.">
-    <meta property="og:image" content="https://exploraeluniverso.com/images/space.jpg">
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
 
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://exploraeluniverso.com/">
-    <meta property="twitter:title" content="Descubre el Universo">
-    <meta property="twitter:description"
-        content="Aventúrate a explorar los misterios del cosmos y los secretos del universo más allá de nuestro planeta.">
-    <meta property="twitter:image" content="https://exploraeluniverso.com/images/space.jpg">
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .code-panel {
+            background: #1e1e1e;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: #2d2d30;
+            margin: -20px -20px 20px -20px;
+            padding: 15px 20px;
+            color: #fff;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .code-header::before {
+            content: "🐍";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        pre {
+            background: transparent;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            position: relative;
+            padding: 2px 5px;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .code-line:hover {
+            background: rgba(76, 175, 80, 0.15);
+            transform: translateX(5px);
+        }
+
+        .explanation-panel {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        .explanation-content {
+            display: none;
+        }
+
+        .explanation-content.active {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .explanation-title {
+            color: #4CAF50;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .explanation-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .demo-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .demo-title {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .demo-content {
+            font-family: monospace;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .highlight-imports { color: #569cd6; }
+        .highlight-comment { color: #6a9955; }
+        .highlight-string { color: #ce9178; }
+        .highlight-number { color: #b5cea8; }
+        .highlight-function { color: #dcdcaa; }
+        .highlight-keyword { color: #c586c0; }
+
+        .default-explanation {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .demo-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+
+        .demo-button:hover {
+            background: #45a049;
+        }
+
+        .demo-result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8f5e8;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .explanation-panel {
+                position: static;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Calculadora IMC con Inteligencia Artificial</h1>
+            <p>Análisis interactivo del código Python con Machine Learning</p>
+        </div>
 
-    <header class="hero">
-        <nav class="nav container">
-            <div class="nav__logo">
-                <h2 class="nav__title">Explorando el Universo</h2>
+        <div class="main-content">
+            <div class="code-panel">
+                <div class="code-header">
+                    Código Python - calculator_imc.py
+                </div>
+                <pre><code><div class="code-line" data-section="imports"><span class="highlight-keyword">import</span> <span class="highlight-imports">tkinter</span> <span class="highlight-keyword">as</span> <span class="highlight-imports">tk</span>
+<span class="highlight-keyword">from</span> <span class="highlight-imports">tkinter</span> <span class="highlight-keyword">import</span> <span class="highlight-imports">messagebox</span>
+<span class="highlight-keyword">import</span> <span class="highlight-imports">numpy</span> <span class="highlight-keyword">as</span> <span class="highlight-imports">np</span>
+<span class="highlight-keyword">from</span> <span class="highlight-imports">sklearn.linear_model</span> <span class="highlight-keyword">import</span> <span class="highlight-imports">LinearRegression</span></div>
+
+<div class="code-line" data-section="training"><span class="highlight-comment"># ======================= </span>
+<span class="highlight-comment"># 1. ENTRENAR MODELO</span>
+<span class="highlight-comment"># =======================</span>
+<span class="highlight-imports">np</span>.<span class="highlight-function">random.seed</span>(<span class="highlight-number">42</span>)
+<span class="highlight-imports">pesos</span> = <span class="highlight-imports">np</span>.<span class="highlight-function">random.uniform</span>(<span class="highlight-number">50</span>, <span class="highlight-number">100</span>, <span class="highlight-number">10</span>)
+<span class="highlight-imports">alturas</span> = <span class="highlight-imports">np</span>.<span class="highlight-function">random.uniform</span>(<span class="highlight-number">1.5</span>, <span class="highlight-number">1.8</span>, <span class="highlight-number">10</span>)
+<span class="highlight-imports">imcs</span> = <span class="highlight-imports">pesos</span> / (<span class="highlight-imports">alturas</span> ** <span class="highlight-number">2</span>)
+<span class="highlight-imports">X</span> = <span class="highlight-imports">np</span>.<span class="highlight-function">column_stack</span>((<span class="highlight-imports">pesos</span>, <span class="highlight-imports">alturas</span>))
+<span class="highlight-imports">y</span> = <span class="highlight-imports">imcs</span>
+<span class="highlight-imports">modelo</span> = <span class="highlight-function">LinearRegression</span>()
+<span class="highlight-imports">modelo</span>.<span class="highlight-function">fit</span>(<span class="highlight-imports">X</span>, <span class="highlight-imports">y</span>)</div>
+
+<div class="code-line" data-section="functions"><span class="highlight-comment"># =======================</span>
+<span class="highlight-comment"># 2. FUNCIONES</span>
+<span class="highlight-comment"># =======================</span>
+<span class="highlight-keyword">def</span> <span class="highlight-function">predecir_imc</span>():
+    <span class="highlight-keyword">try</span>:
+        <span class="highlight-imports">peso</span> = <span class="highlight-function">float</span>(<span class="highlight-imports">entry_peso</span>.<span class="highlight-function">get</span>())
+        <span class="highlight-imports">altura</span> = <span class="highlight-function">float</span>(<span class="highlight-imports">entry_altura</span>.<span class="highlight-function">get</span>())
+        <span class="highlight-keyword">if</span> <span class="highlight-imports">altura</span> <= <span class="highlight-number">0</span>:
+            <span class="highlight-keyword">raise</span> <span class="highlight-function">ValueError</span>(<span class="highlight-string">"La altura debe ser mayor que cero."</span>)
+        <span class="highlight-imports">imc_pred</span> = <span class="highlight-imports">modelo</span>.<span class="highlight-function">predict</span>([[<span class="highlight-imports">peso</span>, <span class="highlight-imports">altura</span>]])[<span class="highlight-number">0</span>]
+        <span class="highlight-imports">messagebox</span>.<span class="highlight-function">showinfo</span>(<span class="highlight-string">"Resultado"</span>, <span class="highlight-string">f"IMC estimado: {imc_pred:.2f}"</span>)
+    <span class="highlight-keyword">except</span> <span class="highlight-function">ValueError</span>:
+        <span class="highlight-imports">messagebox</span>.<span class="highlight-function">showerror</span>(<span class="highlight-string">"Error"</span>, <span class="highlight-string">"Introduce valores numéricos válidos."</span>)</div>
+
+<div class="code-line" data-section="interface"><span class="highlight-comment"># =======================</span>
+<span class="highlight-comment"># 3. INTERFAZ TKINTER</span>
+<span class="highlight-comment"># =======================</span>
+<span class="highlight-imports">root</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Tk</span>()
+<span class="highlight-imports">root</span>.<span class="highlight-function">title</span>(<span class="highlight-string">"Calculadora de IMC con IA"</span>)
+<span class="highlight-imports">root</span>.<span class="highlight-function">geometry</span>(<span class="highlight-string">"300x200"</span>)
+
+<span class="highlight-imports">label_titulo</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Label</span>(<span class="highlight-imports">root</span>, <span class="highlight-imports">text</span>=<span class="highlight-string">"Calculadora de IMC (Regresión)"</span>, 
+                           <span class="highlight-imports">font</span>=(<span class="highlight-string">"Arial"</span>, <span class="highlight-number">12</span>, <span class="highlight-string">"bold"</span>))
+<span class="highlight-imports">label_titulo</span>.<span class="highlight-function">pack</span>(<span class="highlight-imports">pady</span>=<span class="highlight-number">10</span>)
+
+<span class="highlight-imports">frame_inputs</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Frame</span>(<span class="highlight-imports">root</span>)
+<span class="highlight-imports">frame_inputs</span>.<span class="highlight-function">pack</span>(<span class="highlight-imports">pady</span>=<span class="highlight-number">5</span>)
+
+<span class="highlight-imports">label_peso</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Label</span>(<span class="highlight-imports">frame_inputs</span>, <span class="highlight-imports">text</span>=<span class="highlight-string">"Peso (kg):"</span>)
+<span class="highlight-imports">label_peso</span>.<span class="highlight-function">grid</span>(<span class="highlight-imports">row</span>=<span class="highlight-number">0</span>, <span class="highlight-imports">column</span>=<span class="highlight-number">0</span>, <span class="highlight-imports">padx</span>=<span class="highlight-number">5</span>, <span class="highlight-imports">pady</span>=<span class="highlight-number">5</span>)
+<span class="highlight-imports">entry_peso</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Entry</span>(<span class="highlight-imports">frame_inputs</span>)
+<span class="highlight-imports">entry_peso</span>.<span class="highlight-function">grid</span>(<span class="highlight-imports">row</span>=<span class="highlight-number">0</span>, <span class="highlight-imports">column</span>=<span class="highlight-number">1</span>, <span class="highlight-imports">padx</span>=<span class="highlight-number">5</span>, <span class="highlight-imports">pady</span>=<span class="highlight-number">5</span>)
+
+<span class="highlight-imports">label_altura</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Label</span>(<span class="highlight-imports">frame_inputs</span>, <span class="highlight-imports">text</span>=<span class="highlight-string">"Altura (m):"</span>)
+<span class="highlight-imports">label_altura</span>.<span class="highlight-function">grid</span>(<span class="highlight-imports">row</span>=<span class="highlight-number">1</span>, <span class="highlight-imports">column</span>=<span class="highlight-number">0</span>, <span class="highlight-imports">padx</span>=<span class="highlight-number">5</span>, <span class="highlight-imports">pady</span>=<span class="highlight-number">5</span>)
+<span class="highlight-imports">entry_altura</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Entry</span>(<span class="highlight-imports">frame_inputs</span>)
+<span class="highlight-imports">entry_altura</span>.<span class="highlight-function">grid</span>(<span class="highlight-imports">row</span>=<span class="highlight-number">1</span>, <span class="highlight-imports">column</span>=<span class="highlight-number">1</span>, <span class="highlight-imports">padx</span>=<span class="highlight-number">5</span>, <span class="highlight-imports">pady</span>=<span class="highlight-number">5</span>)
+
+<span class="highlight-imports">btn_predecir</span> = <span class="highlight-imports">tk</span>.<span class="highlight-function">Button</span>(<span class="highlight-imports">root</span>, <span class="highlight-imports">text</span>=<span class="highlight-string">"Calcular IMC"</span>, <span class="highlight-imports">command</span>=<span class="highlight-imports">predecir_imc</span>)
+<span class="highlight-imports">btn_predecir</span>.<span class="highlight-function">pack</span>(<span class="highlight-imports">pady</span>=<span class="highlight-number">10</span>)
+
+<span class="highlight-imports">root</span>.<span class="highlight-function">mainloop</span>()</code></pre>
             </div>
 
-            <ul class="nav__link nav__link--menu">
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Inicio</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Sobre nosotros</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Contacto</a>
-                </li>
-                <li class="nav__items">
-                    <a href="#" class="nav__links">Blog</a>
-                </li>
-
-                <img src="./images/close.svg" class="nav__close">
-            </ul>
-
-            <div class="nav__menu">
-                <img src="./images/menu.svg" class="nav__img">
-            </div>
-        </nav>
-
-        <section class="hero__container container">
-            <h1 class="hero__title">Descubre los Misterios del Cosmos</h1>
-            <p class="hero__paragraph">Aventúrate en un viaje sin igual por el universo, explora los planetas, las estrellas y las galaxias.</p>
-            <a href="#" class="cta">Comienza tu exploración</a>
-        </section>
-    </header>
-
-    <main>
-        <section class="container about">
-            <h2 class="subtitle">¿Qué aprenderás en este viaje espacial?</h2>
-            <p class="about__paragraph">Desde las constelaciones más conocidas hasta los fenómenos cósmicos más misteriosos, te adentrarás en el conocimiento profundo del universo.</p>
-
-            <div class="about__main">
-                <article class="about__icons">
-                    <img src="./images/shapes.svg" class="about__icon">
-                    <h3 class="about__title">Galaxias</h3>
-                    <p class="about__paragrah">Explora la vastedad de las galaxias, estructuras gigantescas de estrellas, gas y polvo.</p>
-                </article>
-
-                <article class="about__icons">
-                    <img src="./images/paint.svg" class="about__icon">
-                    <h3 class="about__title">Agujeros Negros</h3>
-                    <p class="about__paragrah">Aprende sobre los misteriosos agujeros negros, regiones del espacio con gravedad tan fuerte que nada puede escapar.</p>
-                </article>
-
-                <article class="about__icons">
-                    <img src="./images/code.svg" class="about__icon">
-                    <h3 class="about__title">Exploración Espacial</h3>
-                    <p class="about__paragrah">Conoce las misiones espaciales y los avances científicos que nos permiten explorar más allá de nuestro planeta.</p>
-                </article>
-            </div>
-        </section>
-
-        <section class="knowledge">
-            <div class="knowledge__container container">
-                <div class="knowledege__texts">
-                    <h2 class="subtitle">¡Viaja por el universo y descubre sus secretos!</h2>
-                    <p class="knowledge__paragraph">Desde el Big Bang hasta las futuras misiones a Marte, explora cada rincón del cosmos. La astronomía te llevará más allá de lo que puedas imaginar.</p>
-                    <a href="#" class="cta">Únete a la aventura</a>
+            <div class="explanation-panel">
+                <div class="explanation-content default-explanation active">
+                    <div class="explanation-title">
+                        🎯 ¡Explora el Código!
+                    </div>
+                    <div class="explanation-text">
+                        Pasa el mouse sobre las diferentes secciones del código Python para ver explicaciones detalladas y ejemplos interactivos de cada parte.
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">📋 Resumen del Proyecto</div>
+                        <p>Este proyecto combina:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Machine Learning:</strong> Regresión lineal con scikit-learn</li>
+                            <li><strong>Interfaz Gráfica:</strong> Tkinter para la UI</li>
+                            <li><strong>Cálculo de IMC:</strong> Predicción basada en peso y altura</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <figure class="knowledge__picture">
-                    <img src="./images/macbook.png" class="knowledge__img">
-                </figure>
-            </div>
-        </section>
-
-        <section class="price container">
-            <h2 class="subtitle">Elige tu plan de exploración espacial</h2>
-
-            <div class="price__table">
-                <div class="price__element">
-                    <p class="price__name">Observación de Estrellas</p>
-                    <h3 class="price__price">Gratis</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Estrellas y constelaciones</p>
-                        <p class="price__features">Fenómenos astronómicos</p>
-                        <p class="price__features">Telescopios y equipo básico</p>
+                <div class="explanation-content" id="imports">
+                    <div class="explanation-title">
+                        📚 Importación de Librerías
                     </div>
-
-                    <a href="#" class="price__cta">Comienza ahora</a>
+                    <div class="explanation-text">
+                        Se importan las librerías necesarias para crear la interfaz gráfica y el modelo de machine learning.
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">📦 Librerías utilizadas:</div>
+                        <div class="demo-content">
+                            <strong>tkinter:</strong> Interfaz gráfica nativa de Python<br>
+                            <strong>numpy:</strong> Operaciones matemáticas y arrays<br>
+                            <strong>sklearn:</strong> Machine Learning (LinearRegression)
+                        </div>
+                    </div>
                 </div>
 
-
-                <div class="price__element price__element--best">
-                    <p class="price__name">Viaje a la Luna</p>
-                    <h3 class="price__price">$50/mes</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Exploración lunar</p>
-                        <p class="price__features">Misiones espaciales</p>
-                        <p class="price__features">Descubrimiento de asteroides</p>
+                <div class="explanation-content" id="training">
+                    <div class="explanation-title">
+                        🧠 Entrenamiento del Modelo IA
                     </div>
-
-                    <a href="#" class="price__cta">Explora ahora</a>
+                    <div class="explanation-text">
+                        Se crea un conjunto de datos sintético y se entrena un modelo de regresión lineal para predecir el IMC.
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">🎲 Datos de Entrenamiento (simulados):</div>
+                        <div class="demo-content">
+                            Peso: 50-100 kg (10 muestras aleatorias)<br>
+                            Altura: 1.5-1.8 m (10 muestras aleatorias)<br>
+                            IMC = peso / altura²
+                        </div>
+                    </div>
+                    <div class="interactive-demo">
+                        <div class="demo-title">🧮 Calculadora IMC Manual:</div>
+                        <input type="number" id="demoPeso" class="demo-input" placeholder="Ingresa peso (kg)" step="0.1">
+                        <input type="number" id="demoAltura" class="demo-input" placeholder="Ingresa altura (m)" step="0.01">
+                        <button class="demo-button" onclick="calcularIMC()">Calcular IMC</button>
+                        <div id="resultadoIMC" class="demo-result" style="display:none;"></div>
+                    </div>
                 </div>
 
-
-                <div class="price__element">
-                    <p class="price__name">Agujeros Negros</p>
-                    <h3 class="price__price">$70/mes</h3>
-
-                    <div class="price__items">
-                        <p class="price__features">Estudio de agujeros negros</p>
-                        <p class="price__features">Gravedad y física cuántica</p>
-                        <p class="price__features">Teoría de la relatividad</p>
+                <div class="explanation-content" id="functions">
+                    <div class="explanation-title">
+                        ⚙️ Función de Predicción
                     </div>
+                    <div class="explanation-text">
+                        La función <code>predecir_imc()</code> toma los valores de peso y altura, los valida y utiliza el modelo entrenado para hacer la predicción.
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">🔍 Proceso de Predicción:</div>
+                        <div class="demo-content">
+                            1. Obtener datos de la interfaz<br>
+                            2. Validar que sean números válidos<br>
+                            3. Usar modelo.predict() para estimar IMC<br>
+                            4. Mostrar resultado en ventana emergente
+                        </div>
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">⚠️ Manejo de Errores:</div>
+                        <div class="demo-content">
+                            • Verifica que altura > 0<br>
+                            • Captura errores de conversión de tipos<br>
+                            • Muestra mensajes de error amigables
+                        </div>
+                    </div>
+                </div>
 
-                    <a href="#" class="price__cta">Comienza tu exploración</a>
+                <div class="explanation-content" id="interface">
+                    <div class="explanation-title">
+                        🖥️ Interfaz Gráfica Tkinter
+                    </div>
+                    <div class="explanation-text">
+                        Se crea una ventana con campos de entrada para peso y altura, y un botón para calcular el IMC usando el modelo de IA.
+                    </div>
+                    <div class="demo-box">
+                        <div class="demo-title">🎨 Elementos de la UI:</div>
+                        <div class="demo-content">
+                            • <strong>Ventana principal:</strong> 300x200 píxeles<br>
+                            • <strong>Labels:</strong> Etiquetas para peso y altura<br>
+                            • <strong>Entries:</strong> Campos de entrada numérica<br>
+                            • <strong>Button:</strong> Botón "Calcular IMC"<br>
+                            • <strong>Grid/Pack:</strong> Gestión de layout
+                        </div>
+                    </div>
+                    <div class="interactive-demo">
+                        <div class="demo-title">🎯 Clasificación IMC:</div>
+                        <div style="font-size: 0.9em;">
+                            <strong>Bajo peso:</strong> &lt; 18.5<br>
+                            <strong>Normal:</strong> 18.5 - 24.9<br>
+                            <strong>Sobrepeso:</strong> 25.0 - 29.9<br>
+                            <strong>Obesidad:</strong> ≥ 30.0
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <section class="testimony">
-            <div class="testimony__container container">
-                <img src="./images/leftarrow.svg" class="testimony__arrow" id="before">
+    <script>
+        // Manejo de las explicaciones interactivas
+        const codeLines = document.querySelectorAll('.code-line');
+        const explanations = document.querySelectorAll('.explanation-content');
 
-                <section class="testimony__body testimony__body--show" data-id="1">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Jordan Alexander, <span class="testimony__course">explorador del espacio.</span></h2>
-                        <p class="testimony__review">Siempre soñé con explorar las estrellas, y ahora sé que el universo tiene secretos fascinantes que aún nos quedan por descubrir.</p>
-                    </div>
+        codeLines.forEach(line => {
+            line.addEventListener('mouseenter', function() {
+                const section = this.getAttribute('data-section');
+                if (section) {
+                    // Ocultar todas las explicaciones
+                    explanations.forEach(exp => exp.classList.remove('active'));
+                    
+                    // Mostrar la explicación correspondiente
+                    const targetExplanation = document.getElementById(section);
+                    if (targetExplanation) {
+                        targetExplanation.classList.add('active');
+                    }
+                }
+            });
+        });
 
-                    <figure class="testimony__picture">
-                        <img src="./images/face.jpg" class="testimony__img">
-                    </figure>
-                </section>
+        // Volver a la explicación por defecto cuando no hay hover
+        document.querySelector('.code-panel').addEventListener('mouseleave', function() {
+            explanations.forEach(exp => exp.classList.remove('active'));
+            document.querySelector('.default-explanation').classList.add('active');
+        });
 
-                <section class="testimony__body" data-id="2">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Alejandra Perez, <span class="testimony__course">astrónoma amateur.</span></h2>
-                        <p class="testimony__review">Me fascinan las constelaciones, y ahora puedo verlas más cerca que nunca gracias a los telescopios de última generación.</p>
-                    </div>
+        // Función para calcular IMC en la demo interactiva
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('demoPeso').value);
+            const altura = parseFloat(document.getElementById('demoAltura').value);
+            const resultado = document.getElementById('resultadoIMC');
+            
+            if (isNaN(peso) || isNaN(altura) || altura <= 0) {
+                resultado.innerHTML = '❌ Por favor ingresa valores válidos';
+                resultado.style.background = '#ffebee';
+                resultado.style.color = '#c62828';
+            } else {
+                const imc = peso / (altura * altura);
+                let categoria = '';
+                
+                if (imc < 18.5) categoria = 'Bajo peso';
+                else if (imc < 25) categoria = 'Normal';
+                else if (imc < 30) categoria = 'Sobrepeso';
+                else categoria = 'Obesidad';
+                
+                resultado.innerHTML = `✅ IMC: ${imc.toFixed(2)} - ${categoria}`;
+                resultado.style.background = '#e8f5e8';
+                resultado.style.color = '#2e7d32';
+            }
+            
+            resultado.style.display = 'block';
+        }
 
-                    <figure class="testimony__picture">
-                        <img src="./images/face2.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <section class="testimony__body" data-id="3">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Karen Arteaga, <span class="testimony__course">estudiante de astronomía.</span></h2>
-                        <p class="testimony__review">Aprender sobre los agujeros negros ha sido una experiencia única. El universo es tan vasto y misterioso.</p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face3.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <section class="testimony__body" data-id="4">
-                    <div class="testimony__texts">
-                        <h2 class="subtitle">Mi nombre es Kevin Ramirez, <span class="testimony__course">explorador espacial.</span></h2>
-                        <p class="testimony__review">Nunca imaginé que podría viajar a la Luna, pero ahora que lo he hecho, todo parece más cercano y posible.</p>
-                    </div>
-
-                    <figure class="testimony__picture">
-                        <img src="./images/face4.jpg" class="testimony__img">
-                    </figure>
-                </section>
-
-                <img src="./images/rightarrow.svg" class="testimony__arrow" id="next">
-            </div>
-        </section>
-
-        <section class="questions container">
-            <h2 class="subtitle">Preguntas frecuentes</h2>
-            <p class="questions__paragraph">Aquí respondemos algunas de las preguntas más comunes sobre el universo y la astronomía.</p>
-
-            <section class="questions__container">
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿Qué es la astronomía?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">La astronomía es la ciencia que estudia los cuerpos celestes, como estrellas, planetas, cometas, asteroides, y el universo en general.</p>
-                    </div>
-                </article>
-
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿Por qué es importante estudiar el espacio?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">Estudiar el espacio nos permite entender el origen y la evolución del universo, así como los fenómenos cósmicos que ocurren en él.</p>
-                    </div>
-                </article>
-
-                <article class="questions__padding">
-                    <div class="questions__answer">
-                        <h3 class="questions__title">¿Qué es un agujero negro?
-                            <span class="questions__arrow">
-                                <img src="./images/arrow.svg" class="questions__img">
-                            </span>
-                        </h3>
-
-                        <p class="questions__show">Un agujero negro es una región del espacio-tiempo cuya gravedad es tan intensa que nada, ni siquiera la luz, puede escapar de él.</p>
-                    </div>
-                </article>
-            </section>
-
-            <section class="questions__offer">
-                <h2 class="subtitle">¿Estás listo para explorar el universo?</h2>
-                <p class="questions__copy">El universo te está esperando para ser descubierto. Atrévete a viajar a las estrellas y más allá.</p>
-                <a href="#" class="cta">Explora ahora</a>
-            </section>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <section class="footer__container container">
-            <nav class="nav nav--footer">
-                <h2 class="footer__title">Explorando el Universo</h2>
-
-                <ul class="nav__link nav__link--footer">
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Inicio</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Sobre nosotros</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Contacto</a>
-                    </li>
-                    <li class="nav__items">
-                        <a href="#" class="nav__links">Blog</a>
-                    </li>
-                </ul>
-            </nav>
-
-            <form class="footer__form" action="https://formspree.io/f/mknkkrkj" method="POST">
-                <h2 class="footer__newsletter">Suscríbete al boletín</h2>
-                <div class="footer__inputs">
-                    <input type="email" placeholder="Email:" class="footer__input" name="_replyto">
-                    <input type="submit" value="Suscríbete" class="footer__submit">
-                </div>
-            </form>
-        </section>
-
-        <section class="footer__copy container">
-            <div class="footer__social">
-                <a href="#" class="footer__icons"><img src="./images/facebook.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/twitter.svg" class="footer__img"></a>
-                <a href="#" class="footer__icons"><img src="./images/youtube.svg" class="footer__img"></a>
-            </div>
-
-            <h3 class="footer__copyright">Derechos reservados &copy; Jordan Alexander</h3>
-        </section>
-    </footer>
-
-    <script src="./js/slider.js"></script>
-    <script src="./js/questions.js"></script>
-    <script src="./js/menu.js"></script>
+        // Permitir calcular con Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && (document.activeElement.id === 'demoPeso' || document.activeElement.id === 'demoAltura')) {
+                calcularIMC();
+            }
+        });
+    </script>
 </body>
-
 </html>
