@@ -362,6 +362,20 @@
             font-size: 0.9rem;
             margin-top: 5px;
         }
+
+        /* Extras para secciones de regresión */
+        .analysis-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 10px 0 5px;
+        }
+        .image-caption {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -600,7 +614,7 @@
                 <div class="card-header fraud-header">
                     <div class="icon"><i class="fas fa-shield-alt"></i></div>
                     <h2>Análisis Detección de Fraude</h2>
-                    <p>Identificación de Transacciones Fraudulentas</p>
+                    <p>Regresión de Pérdida Esperada</p>
                 </div>
                 <div class="card-content">
                     <div class="dataset-stats">
@@ -626,89 +640,30 @@
                         <strong>⚠️ Dataset Desbalanceado:</strong> Solo 4.5% de las transacciones son fraudulentas, lo que presenta desafíos únicos para la detección.
                     </div>
 
-                    <table class="comparison-table">
-                        <thead>
-                            <tr>
-                                <th>Métrica</th>
-                                <th>Árbol de Decisión</th>
-                                <th>Random Forest</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Accuracy</strong></td>
-                                <td>64.00%</td>
-                                <td class="winner">89.00%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Precision</strong></td>
-                                <td class="winner">4.35%</td>
-                                <td>0.00%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Recall</strong></td>
-                                <td class="winner">33.33%</td>
-                                <td>0.00%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>F1-Score</strong></td>
-                                <td class="winner">7.69%</td>
-                                <td>0.00%</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Fraudes Detectados</strong></td>
-                                <td class="winner">3 de 9</td>
-                                <td>0 de 9</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <div class="alert alert-danger">
-                        <strong>🚨 Problema Crítico:</strong> Random Forest no detecta ningún fraude (0% Recall), mientras que Árbol de Decisión detecta 33.3% de los fraudes.
+                    <div class="alert alert-info" style="background: #e3f2fd; border-left: 4px solid #2196F3; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                        <strong>🎯 Objetivo (Regresión):</strong> Predecir la <em>Pérdida Esperada</em> por transacción (ExpectedLoss = Amount × FraudIndicator).
+                        <div style="margin-top:8px; font-size:0.95rem; color:#244;">Métricas clave: MSE, RMSE, MAE, R² y Varianza Explicada.</div>
                     </div>
 
-                    <div class="feature-importance">
-                        <h3>Importancia de Características (Random Forest)</h3>
-                        <div class="feature-bar">
-                            <div class="feature-name">Amount</div>
-                            <div class="bar-container">
-                                <div class="bar-fill" style="width: 67.3%;"></div>
-                            </div>
-                            <div class="feature-value">33.65%</div>
-                        </div>
-                        <div class="feature-bar">
-                            <div class="feature-name">AmountZScore</div>
-                            <div class="bar-container">
-                                <div class="bar-fill" style="width: 64.08%;"></div>
-                            </div>
-                            <div class="feature-value">32.04%</div>
-                        </div>
-                        <div class="feature-bar">
-                            <div class="feature-name">Age</div>
-                            <div class="bar-container">
-                                <div class="bar-fill" style="width: 54.34%;"></div>
-                            </div>
-                            <div class="feature-value">27.17%</div>
-                        </div>
-                        <div class="feature-bar">
-                            <div class="feature-name">RiskScore</div>
-                            <div class="bar-container">
-                                <div class="bar-fill" style="width: 3.34%;"></div>
-                            </div>
-                            <div class="feature-value">1.67%</div>
-                        </div>
-                    </div>
+                    <img src="fraud_regression_analysis.png" alt="Análisis de regresión: predicciones vs reales, residuos y métricas" class="analysis-image" />
+                    <div class="image-caption">Análisis de regresión: predicción vs real, residuos y comparativa de métricas.</div>
+
+                    <img src="fraud_regression_feature_importance.png" alt="Importancia de características en regresión" class="analysis-image" />
+                    <div class="image-caption">Importancia de características (árbol y bosque) para la pérdida esperada.</div>
 
                     <div class="insights">
                         <h3>💡 Insights Clave</h3>
                         <ul>
-                            <li>El monto de transacción es la característica más importante</li>
-                            <li>Árbol de Decisión es superior para detección de fraude en este caso</li>
-                            <li>Random Forest sufre con el dataset extremadamente desbalanceado</li>
-                            <li>Se requiere optimización adicional para mejorar la detección</li>
-                            <li>Costo estimado: Árbol $666 vs Random Forest $913</li>
+                            <li>El enfoque de regresión optimiza el error monetario (RMSE/MAE) y el ajuste global (R²).</li>
+                            <li>El monto y sus transformaciones (p. ej., z-score) tienden a dominar la importancia de variables.</li>
+                            <li>Los residuos ayudan a detectar sesgos por rangos de monto y posibles outliers.</li>
+                            <li>Siguiente paso: ajustar hiperparámetros y evaluar pérdida por segmentos (bajo/medio/alto monto).</li>
                         </ul>
                     </div>
+
+                    <p style="font-size:0.95rem; color:#444; background:#f9f9f9; padding:10px 12px; border-left:4px solid #888; border-radius:6px; margin-top:12px;">
+                        Nota sobre el modelo anterior (clasificación): se probó detectar fraudes directamente, pero el desbalance extremo afectó el recall del bosque. Por ello, se prioriza ahora predecir la pérdida esperada para optimizar el impacto económico.
+                    </p>
                 </div>
             </div>
         </div>
