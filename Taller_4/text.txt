@@ -1,0 +1,420 @@
+UNIVERSIDAD ANDINA DEL CUSCO
+FACULTAD DE INGENIERÍA Y ARQUITECTURA
+ESCUELA PROFESIONAL DE INGENIERÍA DE SISTEMAS
+Taller 4: LLM
+ASIGNATURA: Inteligencia Artificial - 10A
+DOCENTE: Mg. Ing. Hugo Espetia Huamanga
+EQUIPO DE DESARROLLO: Blinders
+ALUMNO:
+● Paredes Puma, Jairo Nahuel 100%
+● Rojas Cornejo, Abel Edson 100%
+● Salas Challco, Luis Marin (SM) 100%
+● Segovia Palacios, Mark Joel 100%
+CUSCO - PERÚ
+2025 - II
+2
+1. Índice General
+2. Introducción..........................................................................................................................4
+3. Marco Teórico....................................................................................................................... 5
+3.1. Selección del LLM........................................................................................................ 5
+3.1.1. Arquitectura y tamaño del modelo....................................................................... 5
+3.1.2. Datos de entrenamiento y capacidades de lenguaje............................................. 5
+3.1.3. Fortalezas............................................................................................................. 5
+3.1.4. Limitaciones......................................................................................................... 6
+3.1.5. Opciones de API y herramientas disponibles.......................................................6
+3.2. Aplicación en Chatbots................................................................................................. 6
+3.2.1. Ejemplos de Chatbots Existentes Basados en LLM.............................................7
+3.2.2. Ventajas de Utilizar LLM en Chatbots................................................................. 8
+3.2.3. Desafíos y limitaciones........................................................................................ 9
+4. Desarrollo............................................................................................................................ 11
+4.1. Propuesta de Chatbot Personalizado........................................................................... 11
+4.1.1. Descripción de la propuesta................................................................................11
+4.1.2. Propósito Principal............................................................................................. 11
+4.1.3. Audiencia Objetivo.............................................................................................11
+4.1.4. Funcionalidades y Características Clave del Chatbot........................................ 12
+4.1.5. Ejemplo de Diálogo o Interacción con el Chatbot............................................. 13
+4.1.6. ¿Cómo se aprovecharán las fortalezas del LLM seleccionado? (discusión)...... 14
+4.1.7. Consideraciones éticas sobre el uso de los LLM en la creación del chatbot......14
+5. Conclusiones....................................................................................................................... 15
+6. Sugerencias..........................................................................................................................16
+7. Referencias.......................................................................................................................... 17
+8. Anexos................................................................................................................................. 18
+3
+1.1. Índice de figuras
+Figura 1: Diagrama sobre las funcionalidades y características clave del chatbot.................. 12
+Figura 2: Prueba del ChatBot Ollama...................................................................................... 13
+Figura 3: Foto grupal del taller.................................................................................................18
+4
+2. Introducción
+Esta actividad tiene un propósito práctico: seleccionar un LLM libre y demostrar su uso en la
+construcción de un chatbot funcional. Para ello, presentaremos de manera clara la
+arquitectura y tamaño del modelo elegido, los datos de entrenamiento y sus capacidades
+lingüísticas, junto con fortalezas y limitaciones relevantes para contextos académicos y de
+servicio. También se describirán las opciones de API y herramientas disponibles para
+ejecución local (p. ej., con servidores ligeros y clientes en Python), priorizando
+reproducibilidad, bajo costo y privacidad de la información.
+A partir de esa base técnica, propondremos un diseño de chatbot personalizado con propósito
+y audiencia definidos, funcionalidades clave (gestión de contexto, manejo de instrucciones,
+validación ligera de entradas), un ejemplo de diálogo y consideraciones éticas (sesgos,
+transparencia y protección de datos). El documento culmina con un plan de demostración
+breve para exposición: preparación del entorno, descarga/arranque del modelo, ejecución del
+cliente y métricas simples de desempeño (tiempo de respuesta, coherencia y estabilidad), de
+forma que la evaluación sea objetiva y la propuesta pueda iterarse rápidamente.
+5
+3. Marco Teórico
+Modelo seleccionado: Llama 3.2 de Meta AI como núcleo de procesamiento de lenguaje
+natural.
+En nuestro caso seleccionamos el modelo Llama 3.2 de Meta AI como el Large Language
+Model (LLM) base para este proyecto. La decisión se basó en su equilibrio ideal entre
+capacidades avanzadas, eficiencia computacional y su naturaleza de código abierto, lo que lo
+hace perfectamente adecuado para entornos académicos y de investigación donde el control
+sobre los datos y la transparencia son primordiales.
+3.1. Selección del LLM
+3.1.1. Arquitectura y tamaño del modelo.
+Llama 3.2 es una de las versiones más recientes de la familia de modelos abiertos
+desarrollados por Meta AI, presentada en septiembre de 2024. Se trata de modelos
+autoregresivos basados en la arquitectura transformer de tipo decoder-only, el estándar
+predominante en los sistemas generativos actuales. Esta versión incorpora variantes
+ligeras de solo texto (1B y 3B) y modelos multimodales de visión y lenguaje (11B y
+90B), diseñados para equilibrar eficiencia y capacidad en diferentes entornos, desde
+dispositivos locales hasta infraestructuras de alto rendimiento. Entre sus innovaciones
+destacan el uso de Grouped Query Attention (GQA) para mejorar la eficiencia
+inferencial, Rotary Positional Embeddings (RoPE) para manejar secuencias extensas y
+la función de activación SwiGLU en sus redes feed-forward, lo que refuerza su
+capacidad de representación no lineal. Si bien en 2025 ya se ha anunciado la siguiente
+generación, Llama 4, la serie 3.2 marcó un hito importante al expandir el ecosistema
+de modelos abiertos y optimizados para múltiples casos de uso.
+3.1.2. Datos de entrenamiento y capacidades de lenguaje.
+El modelo fue pre-entrenado en un corpus masivo de datos públicos que supera los 15
+trillones de tokens. Este conjunto de datos incluye una mayoría de texto en inglés de
+alta calidad, junto con una significante proporción de código de programación y datos
+multilingües en más de 30 idiomas, aunque con un rendimiento óptimo en inglés. Sus
+capacidades lingüísticas abarcan la generación de texto coherente y contextual, la
+comprensión y seguimiento de instrucciones complejas, el razonamiento en contexto
+(few-shot learning) y la capacidad de dialogar de manera natural.
+3.1.3. Fortalezas.
+○ Licencia abierta: Permite su uso para investigación y comercialización sin
+restricciones prohibitivas.
+6
+○ Eficiencia: Optimizado para ejecución en hardware de consumo (GPUs de
+gama alta y CPUs con suficiente RAM).
+○ Buen desempeño en diálogo: La versión "chat" está fine-tuned con
+Reinforcement Learning from Human Feedback (RLHF), lo que la hace ideal
+para aplicaciones conversacionales.
+○ Comunidad activa: Gran soporte en foros y herramientas desarrolladas por la
+comunidad.
+3.1.4. Limitaciones.
+○ Contexto limitado: La ventana de contexto, aunque grande, es finita (ej., 8k
+tokens). Conversaciones muy largas pueden hacer que el modelo "olvide"
+información inicial.
+○ Alucinaciones: Puede generar información incorrecta pero plausible con alta
+confianza.
+○ Sesgos: Hereda sesgos sociales y culturales presentes en sus datos de
+entrenamiento.
+○ Capacidad multilingüe limitada: Su rendimiento en español u otros idiomas
+distintos al inglés, aunque competente, es inferior.
+3.1.5. Opciones de API y herramientas disponibles.
+Para su implementación, se utilizó Ollama, una plataforma de software que permite
+ejecutar, gestionar y servir modelos de LLMs localmente a través de una API REST
+simple. Ollama actúa como un contenedor y wrapper del modelo, simplificando
+enormemente su despliegue.
+a. API: Ollama expone endpoints REST como http://localhost:11434/api/chat
+para interactuar con el modelo.
+b. Herramientas: El chatbot se desarrolló en Python 3.8+ utilizando la librería
+requests para consumir la API de Ollama. Otras herramientas compatibles
+incluyen curl para pruebas, y frameworks como LangChain o LlamaIndex para
+aplicaciones más complejas.
+3.2. Aplicación en Chatbots
+Los Large Language Models han transformado radicalmente el panorama de los chatbots,
+evolucionando de simples sistemas que recitaban scripts rígidos y predefinidos a verdaderos
+asistentes de IA capaces de mantener conversaciones con un nivel de fluidez completamente
+nuevo. Esta evolución representa un cambio paradigmático desde los tradicionales chatbots
+basados en reglas hacia sistemas conversacionales inteligentes que pueden comprender
+contexto, matices y generar respuestas coherentes y contextualmente apropiadas.
+A diferencia de los chatbots tradicionales que operaban mediante árboles de decisión
+predefinidos y patrones de coincidencia de palabras clave, los chatbots basados en LLM
+7
+utilizan modelos de lenguaje pre-entrenados en vastos corpus de datos para generar
+respuestas dinámicas. Esto les permite manejar una amplia variedad de consultas imprevistas,
+mantener el contexto conversacional a través de múltiples intercambios y adaptar su tono y
+estilo según la situación.
+3.2.1. Ejemplos de Chatbots Existentes Basados en LLM.
+Chatbots Comerciales de Vanguardia
+● ChatGPT (OpenAI): El chatbot más prominente del mercado actual, basado en
+la familia de modelos GPT. Mantiene la mayor cuota de mercado entre los
+chatbots de IA generativa, destacándose por su capacidad para mantener
+conversaciones complejas, generar código, crear contenido creativo y resolver
+problemas de razonamiento. Su versión GPT-4o es especialmente reconocida
+por su capacidad multimodal (texto, imagen, voz).
+● Claude (Anthropic): Reconocido como uno de los mejores LLM para
+conversación, sobresaliendo en el manejo de diálogos matizados, retención de
+contexto y cambios de tono. Claude se caracteriza por su enfoque en la
+seguridad y alineación con valores humanos, siendo especialmente eficaz en
+tareas que requieren análisis crítico y razonamiento ético.
+● Google Gemini: Forma parte de los principales chatbots de IA generativa y se
+destaca por sus capacidades multilingües y su integración con el ecosistema de
+servicios de Google. Su versión Gemini 2.5 Pro está optimizada para tareas de
+razonamiento complejo y procesamiento de múltiples pasos.
+Chatbots de Código Abierto
+● Vicuna: Un modelo de alto rendimiento derivado de LLaMA mediante
+fine-tuning con conversaciones de ShareGPT. Representa una alternativa de
+código abierto competitiva que ha demostrado capacidades comparables a
+ChatGPT en muchos escenarios.
+● LLaMA 2/3 (Meta): Disponible para descarga desde Hugging Face y otras
+plataformas de modelos, puede ejecutarse en dispositivos propios e incluso ser
+reentrenado con datos personalizados para crear modelos customizados. Los
+desarrolladores pueden construir sus propios chatbots y aplicaciones sobre esta
+base.
+● Mistral AI: Un modelo ligero y de alto rendimiento que se ha posicionado
+como una alternativa eficiente para aplicaciones que requieren un equilibrio
+entre capacidad y recursos computacionales.
+Chatbots Especializados por Industria
+● IBM Granite: Familia de modelos completamente open source bajo licencia
+Apache v.2, con múltiples variantes incluyendo modelos de propósito general,
+8
+modelos de guardrails y modelos Mixture-of-Experts, optimizados
+específicamente para casos de uso empresariales como servicio al cliente.
+● Chatbots de Atención al Cliente: Implementaciones de LLM en sistemas de
+Help Desk 24/7 garantizan que todas las consultas de clientes sean procesadas
+sin interrupción, junto con sistemas automatizados de gestión de experiencia
+del cliente.
+3.2.2. Ventajas de Utilizar LLM en Chatbots.
+Capacidades Conversacionales Superiores
+● Flexibilidad y Adaptabilidad: Los chatbots basados en LLM pueden manejar
+una variedad impredecible y amplia de consultas sin necesidad de predefinir
+cada posible interacción. Esta flexibilidad elimina las limitaciones de los
+sistemas basados en reglas que requerían programar explícitamente cada
+escenario posible.
+● Mantenimiento del Contexto: Una de las ventajas más significativas es la
+capacidad de mantener el hilo conversacional a través de múltiples turnos de
+diálogo, recordando información previa y utilizándola para proporcionar
+respuestas más relevantes y personalizadas.
+● Generación de Lenguaje: Natural Los LLM producen respuestas en lenguaje
+natural fluido y contextualmente apropiado, eliminando la rigidez
+característica de los chatbots tradicionales y creando experiencias más
+humanas y naturales.
+Eficiencia Operacional
+● Velocidad de Resolución: Mejorada Según estudios recientes del Stanford
+Human-Centered AI Institute, los chatbots basados en LLM pueden resolver
+consultas de clientes hasta 3.5 veces más rápido que sus predecesores basados
+en reglas, resultando en mejoras significativas en los puntajes de satisfacción
+del cliente.
+● Disponibilidad 24/7: Los chatbots potenciados por LLM pueden proporcionar
+soporte las 24 horas del día, los 7 días de la semana, asegurando que los
+clientes reciban asistencia cuando la necesiten, lo que puede llevar a un
+aumento en la satisfacción y lealtad del cliente.
+● Aprendizaje y Mejora: Continua Pueden analizar las interacciones de los
+usuarios para mejorar sus respuestas con el tiempo, llevando a experiencias
+más personalizadas.
+Desarrollo Acelerado
+● Rapidez de Implementación: Los chatbots basados en LLM reducen
+significativamente el tiempo y esfuerzo necesarios para crear un chatbot
+9
+funcional comparado con métodos tradicionales. No es necesario construir
+árboles de decisión complejos ni anticipar todas las posibles consultas de los
+usuarios.
+● Escalabilidad: Una vez implementado, un chatbot basado en LLM puede
+manejar múltiples consultas simultáneamente sin degradación significativa del
+rendimiento, permitiendo escalabilidad horizontal eficiente.
+3.2.3. Desafíos y limitaciones
+Desafíos Técnicos
+● Alucinaciones: El desafío más crítico es la tendencia de los LLM a generar
+información incorrecta pero plausible con alto grado de confianza. Los
+problemas incluyen privacidad de datos, ética y la necesidad constante de
+actualizaciones del modelo. Esto es especialmente problemático en contextos
+críticos como salud, finanzas o asesoramiento legal, donde la información
+incorrecta puede tener consecuencias graves.
+● Limitaciones de Contexto: A pesar de las mejoras en las ventanas de contexto,
+los LLM aún tienen limitaciones finitas. En conversaciones muy extensas, el
+modelo puede "olvidar" información inicial, afectando la coherencia de la
+conversación a largo plazo.
+● Variabilidad en el Rendimiento: Una de las limitaciones clave de la IA
+Generativa y los LLM es su capacidad limitada para participar en
+conversaciones dinámicas, aunque esto está mejorando con las nuevas
+generaciones de modelos.
+Desafíos Éticos y de Seguridad
+● Sesgos Inherentes: Los LLM pueden reflejar y amplificar sesgos indeseables
+presentes en sus datos de entrenamiento, incluyendo sesgos culturales, de
+género, raciales o socioeconómicos. Esto puede resultar en respuestas
+discriminatorias o inapropiadas.
+● Privacidad y Seguridad de Datos: Es necesario abordar desafíos como
+privacidad de datos, regulaciones de IA y ética para un uso responsable. Las
+conversaciones con chatbots pueden contener información sensible personal o
+empresarial, requiriendo protocolos estrictos de manejo de datos.
+● Generación de Contenido Inapropiado: Los chatbots tradicionales, aunque más
+limitados, ofrecen mayor predictibilidad y control sobre las salidas,
+reduciendo ciertos riesgos como generar contenido inapropiado. Los LLM
+pueden ocasionalmente generar contenido ofensivo, engañoso o inapropiado.
+10
+Desafíos Operacionales
+● Costo Computacional: La inferencia de LLM requiere recursos hardware
+considerables para proporcionar una experiencia de usuario en tiempo real.
+Esto incluye tanto el costo de procesamiento como el consumo energético,
+especialmente para modelos grandes.
+● Control y Predictibilidad: Es significativamente más difícil controlar el
+comportamiento exacto del modelo y predecir sus salidas comparado con un
+sistema basado en reglas. Esto puede ser problemático en aplicaciones que
+requieren respuestas altamente consistentes y predecibles.
+● Dependencia de Conectividad: Muchas implementaciones requieren
+conectividad constante a servicios en la nube, lo que puede ser una limitación
+en entornos con conectividad limitada o requisitos de privacidad estrictos.
+11
+4. Desarrollo
+4.1. Propuesta de Chatbot Personalizado
+4.1.1. Descripción de la propuesta.
+La propuesta desarrollada materializa los conceptos teóricos analizados previamente
+en una implementación práctica y funcional. El "ChatBot Académico" representa una
+solución integral diseñada específicamente para el contexto educativo universitario,
+aprovechando las capacidades avanzadas del modelo Llama 3.2 a través de la
+plataforma Ollama para proporcionar asistencia académica personalizada y accesible.
+4.1.2. Propósito Principal.
+El ChatBot Académico fue concebido como un asistente virtual inteligente con el
+propósito específico de democratizar el acceso al apoyo académico, funcionando
+como un tutor virtual disponible las 24 horas del día. Su misión principal es
+complementar la educación tradicional proporcionando:
+● Asistencia académica inmediata: Resolución de dudas fuera del horario de
+clases y cuando los docentes no están disponibles
+● Apoyo en el aprendizaje autodirigido: Facilitando la comprensión de
+conceptos complejos mediante explicaciones personalizadas
+● Refuerzo educativo: Proporcionando ejercicios de práctica y ejemplos
+adicionales para consolidar el aprendizaje
+● Accesibilidad inclusiva: Garantizando que todos los estudiantes,
+independientemente de su ubicación o horario, tengan acceso a apoyo
+académico de calidad
+4.1.3. Audiencia Objetivo.
+Estudiantes Universitarios
+● Estudiantes de pregrado de la Universidad Andina del Cusco
+● Estudiantes de diversas carreras: ingeniería, ciencias, humanidades, ciencias
+sociales
+● Estudiantes que requieren apoyo fuera del horario de clases
+● Estudiantes que prefieren un ambiente de aprendizaje sin juicio para hacer
+preguntas básicas
+Características de la Audiencia
+● Nativos digitales cómodos con interfaces tecnológicas
+● Usuarios que valoran la inmediatez en la resolución de dudas
+● Estudiantes que pueden sentirse intimidados al hacer preguntas en clase
+12
+● Población estudiantil con diferentes niveles de acceso a recursos de tutoría
+privada
+Necesidades Específicas Identificadas
+● Explicaciones paso a paso de conceptos complejos
+● Disponibilidad fuera del horario académico tradicional
+● Ambiente de aprendizaje libre de juicios
+● Acceso gratuito a recursos de apoyo académico
+● Respuestas inmediatas para mantener el flujo de estudio
+4.1.4. Funcionalidades y Características Clave del Chatbot.
+En la siguiente figura se presentan las funcionalidades y características del chatbot a
+implementar.
+Figura 1
+Diagrama sobre las funcionalidades y características clave del chatbot
+Nota. Representa el diagrama teniendo en cuenta las funciones operacionales, de
+usuario y características técnicas del chatbot. Fuente Propia.
+13
+4.1.5. Ejemplo de Diálogo o Interacción con el Chatbot.
+Para evidenciar el funcionamiento del ChatBot Académico desarrollado, se presenta a
+continuación un ejemplo real de interacción. En este caso, se puede observar cómo el
+asistente inicia la conversación respondiendo de manera cordial y mostrando
+disposición para ayudar al estudiante con sus dudas académicas. La interfaz empleada
+permite ingresar preguntas sencillas y recibir respuestas claras, en un tono cercano y
+educativo, lo que refleja el propósito del proyecto. Además, se incluyen los comandos
+básicos de uso que facilitan la gestión de la sesión, como limpiar el historial de
+conversación, consultar los modelos disponibles o cambiar entre ellos.
+Figura 2
+Prueba del ChatBot Ollama
+Nota. Representa la interfaz de ejecución del chatbot académico desarrollado con
+Ollama, mostrando tanto el fragmento de código utilizado como un ejemplo de
+interacción con el usuario en consola. Fuente propia.
+14
+4.1.6. ¿Cómo se aprovecharán las fortalezas del LLM seleccionado? (discusión).
+El modelo Llama 3.2 ofrece distintas ventajas que se verán reflejadas en el desarrollo
+del ChatBot. En primer lugar, al estar optimizado para el diálogo, permite generar
+respuestas más naturales y adaptadas al contexto educativo, lo cual se refuerza con el
+uso de un system prompt que define el estilo de interacción y la manera en que el
+asistente se comunica con el usuario. Otro aspecto importante es que el modelo puede
+ejecutarse de manera local mediante Ollama, lo que facilita una mayor eficiencia en
+los tiempos de respuesta y asegura que los datos de las conversaciones se mantengan
+en un entorno controlado, reduciendo riesgos de privacidad. Además, el ChatBot
+conserva un historial de mensajes que sirve para dar continuidad a la conversación y
+mantener el contexto en las interacciones. De esta forma, se aprovecha la capacidad
+del modelo para seguir hilos de diálogo de manera coherente. Finalmente, aunque en
+esta primera versión no se han incluido todas las funciones posibles, el diseño del
+sistema permite integrar mejoras como el ajuste de parámetros de generación y la
+incorporación de fuentes de información adicionales, lo que ayudaría a reducir errores
+o respuestas inventadas en el futuro.
+4.1.7. Consideraciones éticas sobre el uso de los LLM en la creación del chatbot.
+El modelo Llama 3.2 ofrece distintas ventajas que se verán reflejadas en el desarrollo
+del ChatBot. En primer lugar, al estar optimizado para el diálogo, permite generar
+respuestas más naturales y adaptadas al contexto educativo, lo cual se refuerza con el
+uso de un system prompt que define el estilo de interacción y la manera en que el
+asistente se comunica con el usuario. Otro aspecto importante es que el modelo puede
+ejecutarse de manera local mediante Ollama, lo que facilita una mayor eficiencia en
+los tiempos de respuesta y asegura que los datos de las conversaciones se mantengan
+en un entorno controlado, reduciendo riesgos de privacidad. Además, el ChatBot
+conserva un historial de mensajes que sirve para dar continuidad a la conversación y
+mantener el contexto en las interacciones. De esta forma, se aprovecha la capacidad
+del modelo para seguir hilos de diálogo de manera coherente. Finalmente, aunque en
+esta primera versión no se han incluido todas las funciones posibles, el diseño del
+sistema permite integrar mejoras como el ajuste de parámetros de generación y la
+incorporación de fuentes de información adicionales, lo que ayudaría a reducir errores
+o respuestas inventadas en el futuro.
+15
+5. Conclusiones
+La selección de Llama 3.2 como núcleo del sistema es coherente con los objetivos del
+trabajo: combina capacidad conversacional, eficiencia computacional y apertura, condiciones
+que favorecen contextos académicos donde el control sobre los datos y la transparencia son
+prioritarios. El propio documento enmarca el proyecto en la elección de un LLM libre, su
+documentación técnica y su despliegue local con herramientas sencillas, lo que refuerza la
+pertinencia de la decisión y su orientación práctica hacia un chatbot funcional y reproducible.
+La propuesta de ChatBot Académico demuestra un encaje claro entre tecnología y necesidad
+educativa: posiciona al asistente como tutor virtual 24/7 para resolver dudas, facilitar
+aprendizaje autodirigido y reforzar contenidos con explicaciones y ejercicios, alineándose
+con la audiencia estudiantil universitaria. Esta traducción del marco teórico a una
+implementación concreta evidencia viabilidad técnica y foco en accesibilidad.
+Al mismo tiempo, el trabajo reconoce limitaciones y riesgos propios de los LLM
+(alucinaciones, sesgos, control y predictibilidad), así como desafíos operativos (coste de
+inferencia, dependencia de conectividad) y la necesidad de resguardar privacidad. Estas
+consideraciones exigen guardrails, políticas de datos y monitoreo continuo en producción. El
+uso de Ollama y un cliente en Python aporta una ruta de demostración local y reproducible
+(listar/descargar modelos, ejecutar el chat), reduciendo barreras de entrada para el equipo.
+16
+6. Sugerencias
+En el plano ético y de privacidad, definir desde el diseño políticas de
+minimización/anonimización y retención limitada de datos, controles de acceso y mensajes de
+transparencia al usuario. Complementariamente, incorporar filtros de contenido y detección
+de toxicidad para reducir respuestas ofensivas o engañosas, y establecer rutas de derivación a
+revisión humana en casos sensibles.
+Para mejorar calidad y control, añadir guardrails conversacionales: prompt de sistema claro,
+acotación de dominio, casos de “no sé” explícitos y validaciones previas a la entrega. Esto
+ayuda a mitigar alucinaciones y la variabilidad de salidas, reforzando la coherencia del
+chatbot en escenarios académicos.
+En la operación, comenzar con despliegue local optimizado y escalar por demanda.
+Monitorear latencia y consumo para sostener una experiencia fluida, aprovechando la
+escalabilidad intrínseca del enfoque LLM y controlando el costo computacional. Estandarizar
+la demo/puesta en marcha con pasos documentados (iniciar servicio, pull del modelo,
+ejecución del cliente y comandos auxiliares) para asegurar reproducibilidad entre equipos.
+Finalmente, priorizar mejoras guiadas por la audiencia objetivo: reforzar explicaciones paso a
+paso, ejemplos adicionales y disponibilidad efectiva fuera de horario, recogiendo
+retroalimentación de estudiantes para iterar. Este ciclo de mejora continua alineará el
+asistente con necesidades reales del aula y potenciará su impacto formativo.
+17
+7. Referencias
+[1] H. Naveed, et al., “A comprehensive overview of large language models,” arXiv preprint
+arXiv:2307.06435, Oct. 2024. [Online]. Available:
+https://doi.org/10.48550/arXiv.2307.06435 (accessed Sep. 10, 2025).
+[2] H. Touvron, et al., “Llama 2: Open foundation and fine-tuned chat models,” arXiv
+preprint arXiv:2307.09288, Jul. 2023. [Online]. Available:
+https://doi.org/10.48550/arXiv.2307.09288 (accessed Sep. 11, 2025).
+[3] Blinders, “Código - Taller - 4,” GitHub. Accedido el 12 sep. 2025. [En línea]. Disponible
+en: https://github.com/TMafiuz/TMafiuz.github.io (accessed Sep. 12, 2025).
+[4] Blinders, “Infografía sobre el Taller 4,” Github.io, Sep. 12, 2025. [En línea]. Disponible
+en: https://tmafiuz.github.io/four.html (accessed Sep. 12, 2025).
+[5] Meta, “Llama 3.2: revolucionando la IA y la visión de vanguardia con modelos abiertos y
+personalizables,” Sep. 25, 2024. [Online]. Disponible en:
+https://about.fb.com/ltam/news/2024/09/llama-3-2-revolucionando-la-ia-y-la-vision-de-vangu
+ardia-con-modelos-abiertos-y-personalizables/ (accessed Sep. 12, 2025).
+18
+8. Anexos
+Figura 3
+Foto grupal del taller
+Nota. Captura de pantalla que evidencia la reunión del día miércoles 10 de septiembre del
+2025, todos los integrantes participaron. Fuente propia.
