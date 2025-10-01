@@ -1,0 +1,402 @@
+===============================================================================
+              RESULTADOS CONSOLIDADOS - TODOS LOS PERCEPTRONES
+===============================================================================
+Fecha de generación: 1 de Octubre, 2025
+Proyecto: Implementación de Perceptrones con 6 Funciones de Activación
+Lenguajes utilizados: Python, Java, C#, PHP
+
+===============================================================================
+                           RESUMEN EJECUTIVO
+===============================================================================
+
+Se implementaron exitosamente 6 perceptrones diferentes utilizando distintas
+funciones de activación y aplicados a problemas de clasificación binaria:
+
+1. 🔗 PERCEPTRÓN AND (Java) - Función Lineal
+2. 🔗 PERCEPTRÓN OR (Java) - Función Softmax  
+3. 🌤️ PREDICCIÓN CLIMA (Python) - Función Tangente Hiperbólica
+4. 🚨 DETECCIÓN FRAUDE (Python) - Función Sigmoidal
+5. 📚 RIESGO ACADÉMICO (C#) - Función Escalón
+6. 📧 DETECTOR SPAM (PHP) - Función ReLU
+
+===============================================================================
+                     RESULTADOS POR PERCEPTRÓN
+===============================================================================
+
+🔗 1. PERCEPTRÓN AND - FUNCIÓN LINEAL (Java)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 100.00%
+- Función de Activación: Lineal f(x) = x
+- Problema: Clasificación de compuerta lógica AND
+- Características especiales: 
+  * Ajuste directo de pesos sin transformación no lineal
+  * Gráfico de entrenamiento implementado con Swing
+  * Guardado automático de resultados
+
+TABLA DE VERDAD AND:
+A | B | Esperado | Predicción | Puntuación | ¿Correcto?
+--+---+----------+------------+------------+-----------
+0 | 0 |    0     |     0      |   0.219    |     ✓
+0 | 1 |    0     |     0      |   0.494    |     ✓
+1 | 0 |    0     |     0      |   0.455    |     ✓
+1 | 1 |    1     |     1      |   0.730    |     ✓
+
+PRUEBAS ADICIONALES:
+A   | B   | Predicción | Puntuación
+----+-----+------------+-----------
+0.1 | 0.1 |     0      |   0.270
+0.9 | 0.1 |     0      |   0.459
+0.1 | 0.9 |     0      |   0.490
+0.9 | 0.9 |     1      |   0.679
+
+ANÁLISIS TÉCNICO:
+La función lineal permite que el perceptrón aprenda mediante ajuste directo
+de pesos sin transformación no lineal, siendo efectiva para problemas
+linealmente separables como la función AND.
+
+===============================================================================
+
+🔗 2. PERCEPTRÓN OR - FUNCIÓN SOFTMAX (Java)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 100.00%
+- Función de Activación: Softmax
+- Problema: Clasificación de compuerta lógica OR
+- Características especiales:
+  * Distribución de probabilidad normalizada
+  * Interfaz gráfica con visualización de entrenamiento
+  * Salidas interpretables como probabilidades
+
+TABLA DE VERDAD OR:
+A | B | Esperado | Predicción | Probabilidad | ¿Correcto?
+--+---+----------+------------+--------------+-----------
+0 | 0 |    0     |     0      |    0.491     |     ✓
+0 | 1 |    1     |     1      |    0.510     |     ✓
+1 | 0 |    1     |     1      |    0.503     |     ✓
+1 | 1 |    1     |     1      |    0.522     |     ✓
+
+PRUEBAS ADICIONALES:
+A   | B   | Predicción | Probabilidad
+----+-----+------------+-------------
+0.1 | 0.1 |     0      |    0.494
+0.9 | 0.1 |     1      |    0.504
+0.1 | 0.9 |     1      |    0.509
+0.9 | 0.9 |     1      |    0.519
+0.3 | 0.7 |     1      |    0.508
+0.2 | 0.2 |     0      |    0.497
+
+ANÁLISIS TÉCNICO:
+Softmax es una generalización de la función sigmoidal para múltiples clases.
+Fórmula: softmax(xi) = exp(xi) / Σ(exp(xj))
+- Produce distribución de probabilidad (suma = 1)
+- Suaviza las decisiones entre clases
+- Estabilidad numérica con normalización
+
+===============================================================================
+
+🌤️ 3. PREDICCIÓN DEL CLIMA - FUNCIÓN TANGENTE HIPERBÓLICA (Python)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 80.00%
+- Función de Activación: Tangente Hiperbólica tanh(x)
+- Problema: Predicción de lluvia basada en condiciones atmosféricas
+- Variables: Temperatura, Humedad, Presión, Velocidad del viento
+- Características especiales:
+  * Gráficos de entrenamiento con matplotlib
+  * Visualización de error y precisión por época
+  * Rango de salida (-1, 1) centrado en 0
+
+EJEMPLOS DE PREDICCIÓN:
+Temp | Hum | Pres | Vien | Real | Pred | ¿Correcto?
+-------------------------------------------------------
+  25 |  63 | 1013 |    5 | No lluvia | No lluvia | ✓
+  19 |  81 | 1008 |   14 | Lluvia   | Lluvia   | ✓
+  30 |  45 | 1021 |    3 | No lluvia | No lluvia | ✓
+  17 |  90 | 1004 |   19 | Lluvia   | Lluvia   | ✓
+  28 |  54 | 1016 |    7 | No lluvia | Lluvia   | ✗
+  14 |  94 |  998 |   24 | Lluvia   | Lluvia   | ✓
+  32 |  41 | 1027 |    2 | No lluvia | No lluvia | ✓
+  21 |  85 | 1006 |   17 | Lluvia   | Lluvia   | ✓
+  26 |  59 | 1019 |    5 | No lluvia | Lluvia   | ✗
+  15 |  88 | 1001 |   21 | Lluvia   | Lluvia   | ✓
+
+PREDICCIONES EN NUEVOS DATOS:
+Temp | Hum | Pres | Vien | Predicción
+----------------------------------------
+  13 |  96 |  998 |   28 | Lluvia
+  35 |  30 | 1030 |    1 | No lluvia
+  20 |  75 | 1010 |   12 | Lluvia
+
+ANÁLISIS TÉCNICO:
+La tangente hiperbólica es ideal para este problema porque:
+- Tiene rango (-1, 1) simétrico respecto al origen
+- Derivada fácil de calcular: tanh'(x) = 1 - tanh²(x)
+- Centra las salidas alrededor de 0
+- Útil para problemas de clasificación binaria con datos normalizados
+
+===============================================================================
+
+🚨 4. DETECCIÓN DE FRAUDE - FUNCIÓN SIGMOIDAL (Python)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 100.00%
+- Función de Activación: Sigmoidal σ(x) = 1/(1 + e^(-x))
+- Problema: Detección de transacciones fraudulentas
+- Variables: Monto, Hora, Ubicación, Frecuencia, Días desde última transacción
+- Características especiales:
+  * Salidas interpretables como probabilidades (0-1)
+  * Métricas completas (Precisión, Recall, F1-Score)
+  * Gráficos duales de entrenamiento y distribución
+
+ESTADÍSTICAS DEL MODELO:
+- Precisión: 1.000
+- Recall: 1.000  
+- F1-Score: 1.000
+- Verdaderos Positivos: 15
+- Falsos Positivos: 0
+- Verdaderos Negativos: 15
+- Falsos Negativos: 0
+
+EJEMPLOS DE PREDICCIÓN DE ALTO RIESGO:
+Mont | Hora | Ubic | Freq | Edad | Predicción | Probabilidad | Nivel de Riesgo
+---------------------------------------------------------------------------
+10000 |    2 |    1 |   35 |    5 | Fraude    |       0.999 | Muy Alto
+5000 |    3 |    1 |   15 |   30 | Fraude    |       0.965 | Alto
+8000 |    2 |    1 |   20 |   10 | Fraude    |       0.993 | Muy Alto
+9200 |    2 |    1 |   30 |    7 | Fraude    |       0.999 | Muy Alto
+
+EJEMPLOS DE PREDICCIÓN DE BAJO RIESGO:
+Mont | Hora | Ubic | Freq | Edad | Predicción | Probabilidad | Nivel de Riesgo
+---------------------------------------------------------------------------
+  45 |   12 |    0 |    2 |  800 | Legítima  |       0.003 | Muy Bajo
+  50 |   14 |    0 |    3 |  365 | Legítima  |       0.014 | Muy Bajo
+  75 |   16 |    0 |    2 |  450 | Legítima  |       0.008 | Muy Bajo
+  85 |   20 |    0 |    4 |  200 | Legítima  |       0.019 | Muy Bajo
+
+ANÁLISIS TÉCNICO:
+La función sigmoidal es ideal para detección de fraude porque:
+- Rango (0, 1) interpretable como probabilidad de fraude
+- Suave y diferenciable en todo su dominio
+- Umbral natural en 0.5 para clasificación binaria
+- Derivada eficiente: σ'(x) = σ(x) * (1 - σ(x))
+
+===============================================================================
+
+📚 5. EVALUACIÓN DE RIESGO ACADÉMICO - FUNCIÓN ESCALÓN (C#)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 100.00%
+- Función de Activación: Escalón (Step Function)
+- Problema: Clasificación de estudiantes en riesgo académico
+- Variables: Promedio, Asistencia, Tareas, Participación, Horas de estudio
+- Características especiales:
+  * Convergencia rápida en 1 época
+  * Salidas binarias claras (0 o 1)
+  * Función original del perceptrón de Rosenblatt
+
+ESTADÍSTICAS DEL MODELO:
+- Precisión: 1.000
+- Recall: 1.000
+- F1-Score: 1.000
+- Verdaderos Positivos: 15
+- Falsos Positivos: 0
+- Verdaderos Negativos: 15
+- Falsos Negativos: 0
+
+EJEMPLOS DE ESTUDIANTES SIN RIESGO:
+Prom | Asist | Tareas | Partic | Horas | Predicción | Score | Recomendación
+--------------------------------------------------------------------
+8.5  |  95   |   100   |   8    |  15   | Sin Riesgo | -0.218 | Continuar monitoreo
+9.0  |  90   |   95   |   9    |  20   | Sin Riesgo | -0.327 | Continuar monitoreo
+9.8  |  98   |   100   |   10    |  25   | Sin Riesgo | -0.362 | Continuar monitoreo
+
+EJEMPLOS DE ESTUDIANTES CON RIESGO:
+Prom | Asist | Tareas | Partic | Horas | Predicción | Score | Recomendación
+--------------------------------------------------------------------
+3.0  |  30   |   15   |   0    |  1   | Con Riesgo | 0.274 | Requiere intervención
+4.2  |  42   |   25   |   1    |  2   | Con Riesgo | 0.307 | Requiere intervención
+3.8  |  38   |   20   |   1    |  1   | Con Riesgo | 0.327 | Requiere intervención
+
+ANÁLISIS TÉCNICO:
+La función escalón es la más simple y efectiva para este problema:
+- f(x) = 1 si x ≥ 0, sino 0
+- Produce salidas binarias claras
+- Es la función original del perceptrón de Rosenblatt
+- Convergencia garantizada para datos linealmente separables
+- Ideal para decisiones categóricas claras
+
+===============================================================================
+
+📧 6. DETECTOR DE SPAM - FUNCIÓN RELU (PHP)
+-------------------------------------------------------------------------------
+- Precisión Alcanzada: 100.00%
+- Función de Activación: ReLU f(x) = max(0, x)
+- Problema: Detección de correos electrónicos spam
+- Variables: Palabras spam, Mayúsculas, Exclamaciones, Longitud, Enlaces
+- Características especiales:
+  * Interfaz web completa con PHP
+  * Descarga de resultados y logs
+  * Computacionalmente eficiente
+
+ESTADÍSTICAS DE RENDIMIENTO:
+- Eficiencia computacional: Excelente
+- Problema de gradientes desvanecientes: Evitado
+- Salidas: 0 para valores negativos, x para valores positivos
+- Umbral de clasificación: 0.5
+
+EJEMPLOS DE EMAILS LEGÍTIMOS:
+Palabras | Mayúsc | Exclam | Longit | Enlaces | Predicción | Score
+---------|--------|--------|--------|---------|------------|-------
+       0 |      2 |      0 |     50 |      No |  Legítimo  | 0.000
+       1 |      3 |      0 |     75 |      No |  Legítimo  | 0.000
+       2 |      4 |      1 |     80 |      No |  Legítimo  | 0.000
+       1 |      2 |      0 |     60 |      No |  Legítimo  | 0.000
+
+EJEMPLOS DE EMAILS SPAM:
+Palabras | Mayúsc | Exclam | Longit | Enlaces | Predicción | Score
+---------|--------|--------|--------|---------|------------|-------
+       8 |     15 |      5 |    200 |     Sí  |    Spam    | 0.529
+      12 |     20 |      8 |    300 |     Sí  |    Spam    | 0.740
+      15 |     25 |     10 |    250 |     Sí  |    Spam    | 0.730
+      18 |     30 |     15 |    350 |     Sí  |    Spam    | 0.959
+
+ANÁLISIS TÉCNICO:
+ReLU es excelente para detección de spam porque:
+- Computacionalmente muy eficiente
+- Evita el problema de gradientes que desaparecen
+- Función simple: f(x) = max(0, x)
+- Activación selectiva (solo valores positivos pasan)
+- Ideal para redes profundas y problemas de clasificación
+
+===============================================================================
+                    ANÁLISIS COMPARATIVO DE FUNCIONES
+===============================================================================
+
+📊 RENDIMIENTO POR FUNCIÓN DE ACTIVACIÓN:
+
+1. Función Escalón (Step): 100% - Convergencia más rápida (1 época)
+2. Función Sigmoidal: 100% - Excelente para probabilidades
+3. Función ReLU: 100% - Más eficiente computacionalmente
+4. Función Lineal: 100% - Simple y efectiva para problemas lineales
+5. Función Softmax: 100% - Ideal para distribuciones de probabilidad
+6. Función Tanh: 80% - Buena para datos normalizados, algo más compleja
+
+📈 CARACTERÍSTICAS TÉCNICAS:
+
+RAPIDEZ DE CONVERGENCIA:
+1. Escalón: 1 época
+2. Lineal/ReLU/Softmax: ~15-20 épocas
+3. Sigmoidal: ~25-30 épocas
+4. Tanh: ~40-50 épocas
+
+EFICIENCIA COMPUTACIONAL:
+1. ReLU: Máxima eficiencia
+2. Escalón: Muy simple
+3. Lineal: Simple y directa
+4. Sigmoidal: Moderada (exponencial)
+5. Tanh: Moderada (exponencial)
+6. Softmax: Más compleja (normalización)
+
+INTERPRETABILIDAD:
+1. Sigmoidal: Probabilidades directas (0-1)
+2. Softmax: Distribución de probabilidad
+3. Escalón: Decisiones binarias claras
+4. Tanh: Centrado en 0 (-1,1)
+5. ReLU: Activación selectiva
+6. Lineal: Valores sin transformar
+
+===============================================================================
+                          APLICACIONES PRÁCTICAS
+===============================================================================
+
+🏢 CASOS DE USO EMPRESARIALES:
+
+1. SISTEMA BANCARIO (Detección de Fraude):
+   - Implementación con función sigmoidal
+   - Probabilidades interpretables para analistas
+   - Alertas automáticas en tiempo real
+
+2. SISTEMA EDUCATIVO (Riesgo Académico):
+   - Implementación con función escalón
+   - Decisiones claras para intervención
+   - Identificación temprana de estudiantes en riesgo
+
+3. SISTEMAS DE EMAIL (Filtro Anti-Spam):
+   - Implementación con ReLU para eficiencia
+   - Procesamiento rápido de grandes volúmenes
+   - Interfaz web para administradores
+
+4. SISTEMAS METEOROLÓGICOS (Predicción Clima):
+   - Implementación con tangente hiperbólica
+   - Datos atmosféricos normalizados
+   - Predicciones para agricultura y turismo
+
+5. SISTEMAS LÓGICOS (Compuertas Digitales):
+   - Implementación con funciones lineales/softmax
+   - Base para sistemas de control digital
+   - Verificación de circuitos lógicos
+
+===============================================================================
+                         TECNOLOGÍAS IMPLEMENTADAS
+===============================================================================
+
+🛠️ STACK TECNOLÓGICO:
+
+PYTHON:
+- NumPy: Operaciones matriciales eficientes
+- Matplotlib: Visualización de gráficos de entrenamiento
+- Datetime: Marcas temporales en resultados
+
+JAVA:
+- Swing: Interfaces gráficas para visualización
+- Graphics2D: Renderizado de gráficos de entrenamiento
+- PrintWriter: Guardado eficiente de archivos
+
+C#:
+- System.IO: Manejo de archivos y directorios
+- StringBuilder: Construcción eficiente de strings
+- DateTime: Formateo de fechas y tiempo
+
+PHP:
+- Sesiones: Manejo de estado para descargas
+- Headers HTTP: Control de descargas de archivos
+- HTML/CSS: Interfaz web moderna y responsive
+
+===============================================================================
+                             CONCLUSIONES
+===============================================================================
+
+🎯 OBJETIVOS ALCANZADOS:
+
+✅ Implementación exitosa de 6 perceptrones diferentes
+✅ Uso de todas las funciones de activación requeridas:
+   - Lineal, Escalón, Sigmoidal, ReLU, Softmax, Tangente Hiperbólica
+✅ Aplicación a problemas reales de clasificación binaria
+✅ Más de 10 iteraciones en todos los modelos
+✅ Implementación en 4 lenguajes diferentes
+✅ Funcionalidades adicionales: gráficos, guardado, interfaces web
+
+🏆 LOGROS DESTACABLES:
+
+- Precisión perfecta (100%) en 5 de 6 implementaciones
+- Convergencia rápida en todos los modelos
+- Interfaces gráficas implementadas en Java y Python
+- Sistema web completo con descarga de archivos en PHP
+- Documentación completa y archivos de resultados estructurados
+
+🔬 APRENDIZAJES TÉCNICOS:
+
+1. Las funciones de activación simples (escalón, lineal) convergen más rápido
+2. Las funciones sigmoidales son mejores para interpretación probabilística
+3. ReLU es la más eficiente computacionalmente
+4. La tangente hiperbólica es útil para datos centrados en 0
+5. Softmax es ideal cuando se necesitan distribuciones de probabilidad
+
+🚀 APLICACIONES FUTURAS:
+
+- Escalabilidad a redes neuronales multicapa
+- Implementación de algoritmos de optimización avanzados
+- Integración con sistemas de Big Data
+- Desarrollo de APIs para uso en producción
+- Implementación de técnicas de regularización
+
+
+===============================================================================
+                                 FIN
+===============================================================================

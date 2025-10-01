@@ -1,0 +1,46 @@
+=== RESULTADOS DETECTOR DE SPAM ===
+Función de activación: ReLU
+Precisión: 100.00%
+Fecha: 2025-10-01 22:12:58
+
+=== EJEMPLOS DE PREDICCIÓN ===
+Palabras | Mayúsc | Exclam | Longit | Enlaces | Real     | Predicción | Score | ¿Correcto?
+---------|--------|--------|--------|---------|----------|------------|-------|----------
+       0 |      2 |      0 |     50 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+       8 |     15 |      5 |    200 |     Sí |     Spam |       Spam | 0.529 |       ✓
+       1 |      3 |      0 |     75 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      12 |     20 |      8 |    300 |     Sí |     Spam |       Spam | 0.740 |       ✓
+       0 |      1 |      0 |     40 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      15 |     25 |     10 |    250 |     Sí |     Spam |       Spam | 0.730 |       ✓
+       2 |      4 |      1 |     80 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      10 |     18 |      6 |    280 |     Sí |     Spam |       Spam | 0.672 |       ✓
+       1 |      2 |      0 |     60 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      14 |     22 |      9 |    320 |     Sí |     Spam |       Spam | 0.796 |       ✓
+       0 |      3 |      0 |     45 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+       9 |     16 |      7 |    240 |     Sí |     Spam |       Spam | 0.615 |       ✓
+       2 |      5 |      1 |     85 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      13 |     24 |     11 |    290 |     Sí |     Spam |       Spam | 0.783 |       ✓
+       1 |      1 |      0 |     55 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      11 |     19 |      8 |    270 |     Sí |     Spam |       Spam | 0.690 |       ✓
+       0 |      2 |      0 |     65 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      16 |     26 |     12 |    310 |     Sí |     Spam |       Spam | 0.843 |       ✓
+       2 |      4 |      1 |     70 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+       8 |     17 |      6 |    260 |     Sí |     Spam |       Spam | 0.633 |       ✓
+       1 |      3 |      0 |     48 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      17 |     28 |     13 |    330 |     Sí |     Spam |       Spam | 0.895 |       ✓
+       0 |      1 |      0 |     42 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+       7 |     14 |      5 |    220 |     Sí |     Spam |       Spam | 0.547 |       ✓
+       2 |      6 |      1 |     78 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      18 |     30 |     15 |    350 |     Sí |     Spam |       Spam | 0.959 |       ✓
+       1 |      2 |      0 |     52 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+       6 |     13 |      4 |    210 |     Sí |     Spam |       Spam | 0.514 |       ✓
+       0 |      4 |      0 |     68 |      No | Legítimo |  Legítimo | 0.000 |       ✓
+      19 |     32 |     16 |    380 |     Sí |     Spam |       Spam | 1.025 |       ✓
+
+=== INFORMACIÓN SOBRE RELU ===
+ReLU (Rectified Linear Unit) es una función de activación que:
+- Función: f(x) = max(0, x)
+- Computacionalmente eficiente
+- Evita el problema de gradientes que desaparecen
+- Devuelve 0 para valores negativos y x para valores positivos
+- Para clasificación binaria se usa umbral en 0.5

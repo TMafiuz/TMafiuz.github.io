@@ -1,0 +1,20 @@
+=== ENTRENAMIENTO PERCEPTRON DETECTOR SPAM ===
+Función de activación: ReLU
+Tasa de aprendizaje: 0.02
+Épocas: 60
+Fecha: 2025-10-01 22:12:58
+
+Época 0, Error promedio: 0.5000
+Época 10, Error promedio: 0.0000
+Época 20, Error promedio: 0.0000
+Época 30, Error promedio: 0.0000
+Época 40, Error promedio: 0.0000
+Época 50, Error promedio: 0.0000
+
+=== PESOS FINALES ===
+Peso 0: 0.0231
+Peso 1: 0.0523
+Peso 2: 0.0559
+Peso 3: 0.1595
+Peso 4: 0.1554
+Bias: 0.3085

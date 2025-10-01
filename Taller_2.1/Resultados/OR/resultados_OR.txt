@@ -1,0 +1,20 @@
+=== ENTRENAMIENTO PERCEPTRON OR LÓGICO ===
+Función de activación: Softmax
+Tasa de aprendizaje: 0.3
+Épocas: 50
+
+Época 0, Error promedio: 0.5000
+Época 5, Error promedio: 0.0000
+Época 10, Error promedio: 0.0000
+Época 15, Error promedio: 0.0000
+Época 20, Error promedio: 0.0000
+Época 25, Error promedio: 0.0000
+Época 30, Error promedio: 0.0000
+Época 35, Error promedio: 0.0000
+Época 40, Error promedio: 0.0000
+Época 45, Error promedio: 0.0000
+
+=== PESOS FINALES ===
+Peso 0: 0.0465
+Peso 1: 0.0741
+Bias: -0.0342

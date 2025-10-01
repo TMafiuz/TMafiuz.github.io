@@ -1,0 +1,62 @@
+=== PERCEPTR?N PARA CLASIFICACI?N DE RIESGO ACAD?MICO ===
+Funci?n de activaci?n: Escal?n (Step Function)
+
+?poca 0, Error promedio: 0.0333, Actualizaciones: 1
+Convergencia alcanzada en ?poca 1
+
+Precisi?n en datos de entrenamiento: 100.00%
+
+=== EJEMPLOS DE CLASIFICACI?N ===
+Prom | Asist | Tareas | Partic | Horas | Real        | Predicci?n  | Score  | ?Correcto?
+-----+-------+--------+--------+-------+-------------+-------------+--------+-----------
+8.5  |  95   |   100   |   8    |  15   | Sin Riesgo   | Sin Riesgo   | -0.218  |     ?
+6.0  |  60   |   50   |   3    |  5   | Con Riesgo   | Con Riesgo   | 0.140  |     ?
+9.0  |  90   |   95   |   9    |  20   | Sin Riesgo   | Sin Riesgo   | -0.327  |     ?
+5.5  |  55   |   40   |   2    |  3   | Con Riesgo   | Con Riesgo   | 0.216  |     ?
+7.8  |  85   |   90   |   7    |  12   | Sin Riesgo   | Sin Riesgo   | -0.137  |     ?
+4.5  |  45   |   30   |   1    |  2   | Con Riesgo   | Con Riesgo   | 0.297  |     ?
+8.2  |  88   |   85   |   8    |  14   | Sin Riesgo   | Sin Riesgo   | -0.202  |     ?
+5.8  |  58   |   45   |   3    |  4   | Con Riesgo   | Con Riesgo   | 0.156  |     ?
+9.2  |  92   |   98   |   9    |  18   | Sin Riesgo   | Sin Riesgo   | -0.319  |     ?
+4.8  |  48   |   35   |   2    |  3   | Con Riesgo   | Con Riesgo   | 0.236  |     ?
+7.5  |  82   |   88   |   6    |  11   | Sin Riesgo   | Sin Riesgo   | -0.079  |     ?
+5.2  |  52   |   42   |   2    |  4   | Con Riesgo   | Con Riesgo   | 0.214  |     ?
+8.8  |  89   |   92   |   8    |  16   | Sin Riesgo   | Sin Riesgo   | -0.246  |     ?
+4.2  |  42   |   25   |   1    |  2   | Con Riesgo   | Con Riesgo   | 0.307  |     ?
+7.2  |  78   |   80   |   6    |  10   | Sin Riesgo   | Sin Riesgo   | -0.061  |     ?
+5.0  |  50   |   38   |   2    |  3   | Con Riesgo   | Con Riesgo   | 0.229  |     ?
+8.0  |  86   |   87   |   7    |  13   | Sin Riesgo   | Sin Riesgo   | -0.149  |     ?
+4.8  |  47   |   32   |   1    |  2   | Con Riesgo   | Con Riesgo   | 0.286  |     ?
+9.5  |  96   |   100   |   10    |  22   | Sin Riesgo   | Sin Riesgo   | -0.397  |     ?
+3.8  |  38   |   20   |   1    |  1   | Con Riesgo   | Con Riesgo   | 0.327  |     ?
+
+=== PREDICCIONES PARA NUEVOS ESTUDIANTES ===
+Prom | Asist | Tareas | Partic | Horas | Predicci?n  | Score  | Recomendaci?n
+-----+-------+--------+--------+-------+-------------+--------+------------------
+3.0  |  30   |   15   |   0    |  1   | Con Riesgo   | 0.274  | Requiere intervenci?n
+9.8  |  98   |   100   |   10    |  25   | Sin Riesgo   | -0.362  | Continuar monitoreo
+6.5  |  70   |   65   |   4    |  7   | Con Riesgo   | 0.024  | Requiere intervenci?n
+4.5  |  45   |   35   |   2    |  3   | Con Riesgo   | 0.157  | Requiere intervenci?n
+
+=== ESTAD?STICAS DEL MODELO ===
+Precisi?n: 1.000
+Recall: 1.000
+F1-Score: 1.000
+Verdaderos Positivos: 15
+Falsos Positivos: 0
+Verdaderos Negativos: 15
+Falsos Negativos: 0
+
+=== INFORMACI?N SOBRE LA FUNCI?N ESCAL?N ===
+La funci?n escal?n (step function) es la funci?n de activaci?n m?s simple:
+? f(x) = 1 si x ? 0, sino 0
+? Produce salidas binarias claras (0 o 1)
+? Es la funci?n original del perceptr?n de Rosenblatt
+? Ideal para problemas de clasificaci?n binaria linealmente separables
+? Convergencia garantizada para datos linealmente separables
+
+El perceptr?n puede ayudar a identificar estudiantes en riesgo acad?mico
+para intervenci?n temprana y apoyo personalizado.
+Error al guardar archivo: Access to the path "/home/compiler/resultados_riesgo_completos.txt" is denied.
+
+=== Code Execution Successful ===

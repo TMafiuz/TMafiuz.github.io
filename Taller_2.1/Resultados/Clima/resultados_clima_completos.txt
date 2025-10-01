@@ -1,0 +1,33 @@
+=== RESULTADOS PREDICCIÓN DEL CLIMA ===
+Función de activación: Tangente Hiperbólica
+Precisión: 80.00%
+Fecha: 2025-10-01 15:01:40
+
+=== EJEMPLOS DE PREDICCIÓN ===
+Temp | Hum | Pres | Vien | Real | Pred | ¿Correcto?
+-------------------------------------------------------
+  25 |  63 | 1013 |    5 | No lluvia | No lluvia | ✓
+  19 |  81 | 1008 |   14 | Lluvia   | Lluvia   | ✓
+  30 |  45 | 1021 |    3 | No lluvia | No lluvia | ✓
+  17 |  90 | 1004 |   19 | Lluvia   | Lluvia   | ✓
+  28 |  54 | 1016 |    7 | No lluvia | Lluvia   | ✗
+  14 |  94 |  998 |   24 | Lluvia   | Lluvia   | ✓
+  32 |  41 | 1027 |    2 | No lluvia | No lluvia | ✓
+  21 |  85 | 1006 |   17 | Lluvia   | Lluvia   | ✓
+  26 |  59 | 1019 |    5 | No lluvia | Lluvia   | ✗
+  15 |  88 | 1001 |   21 | Lluvia   | Lluvia   | ✓
+
+=== PREDICCIONES EN NUEVOS DATOS ===
+Temp | Hum | Pres | Vien | Predicción
+----------------------------------------
+  13 |  96 |  998 |   28 | Lluvia
+  35 |  30 | 1030 |    1 | No lluvia
+  20 |  75 | 1010 |   12 | Lluvia
+
+=== INFORMACIÓN SOBRE TANGENTE HIPERBÓLICA ===
+La tangente hiperbólica es una función de activación que:
+- Tiene rango (-1, 1)
+- Es simétrica respecto al origen
+- Tiene derivada fácil de calcular: tanh'(x) = 1 - tanh²(x)
+- Centra las salidas alrededor de 0
+- Es útil para problemas de clasificación binaria

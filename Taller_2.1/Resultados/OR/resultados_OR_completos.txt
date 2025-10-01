@@ -1,0 +1,33 @@
+
+=== RESULTADOS DE PREDICCIÓN ===
+Precisión: 100.00%
+
+=== TABLA DE VERDAD OR ===
+A | B | Esperado | Predicción | Probabilidad | ¿Correcto?
+--+---+----------+------------+--------------+-----------
+0 | 0 |    0     |     0      |    0.491     |     ✓
+0 | 1 |    1     |     1      |    0.510     |     ✓
+1 | 0 |    1     |     1      |    0.503     |     ✓
+1 | 1 |    1     |     1      |    0.522     |     ✓
+
+=== PRUEBAS ADICIONALES ===
+A   | B   | Predicción | Probabilidad
+----+-----+------------+-------------
+0.1 | 0.1 |     0      |    0.494
+0.9 | 0.1 |     1      |    0.504
+0.1 | 0.9 |     1      |    0.509
+0.9 | 0.9 |     1      |    0.519
+0.3 | 0.7 |     1      |    0.508
+0.2 | 0.2 |     0      |    0.497
+
+=== INFORMACIÓN SOBRE SOFTMAX ===
+Softmax es una generalización de la función sigmoidal para múltiples clases.
+Fórmula: softmax(xi) = exp(xi) / Σ(exp(xj))
+Para 2 clases: softmax([x, 0]) ≈ sigmoid(x)
+Ventajas:
+- Produce distribución de probabilidad (suma = 1)
+- Suaviza las decisiones entre clases
+- Estabilidad numérica con normalización
+
+El perceptrón con Softmax ha aprendido la función OR lógica!
+Las probabilidades muestran la confianza en cada predicción.

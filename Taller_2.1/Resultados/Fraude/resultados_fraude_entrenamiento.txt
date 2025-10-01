@@ -1,0 +1,21 @@
+=== ENTRENAMIENTO PERCEPTRON DETECCIÓN FRAUDE ===
+Función de activación: Sigmoidal
+Tasa de aprendizaje: 0.5
+Épocas: 35
+Fecha: 2025-10-01 15:03:11
+
+Época 0, Error promedio: 0.0500
+Época 5, Error promedio: 0.0027
+Época 10, Error promedio: 0.0014
+Época 15, Error promedio: 0.0009
+Época 20, Error promedio: 0.0007
+Época 25, Error promedio: 0.0006
+Época 30, Error promedio: 0.0005
+
+=== PESOS FINALES ===
+Peso 0: 1.1186
+Peso 1: -0.4057
+Peso 2: 1.3896
+Peso 3: 1.0860
+Peso 4: -0.7824
+Bias: 0.1040

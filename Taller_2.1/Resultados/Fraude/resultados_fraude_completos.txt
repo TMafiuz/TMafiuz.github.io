@@ -1,0 +1,49 @@
+=== RESULTADOS DETECCIÓN DE FRAUDE ===
+Función de activación: Sigmoidal
+Precisión: 100.00%
+Fecha: 2025-10-01 15:03:11
+
+=== EJEMPLOS DE PREDICCIÓN ===
+Mont | Hora | Ubic | Freq | Edad | Real      | Pred      | Prob  | ¿Correcto?
+--------------------------------------------------------------------------------
+  50 |   14 |    0 |    3 |  365 | Legítima  | Legítima  | 0.014 | ✓
+5000 |    3 |    1 |   15 |   30 | Fraude    | Fraude    | 0.965 | ✓
+ 120 |   10 |    0 |    5 |  180 | Legítima  | Legítima  | 0.040 | ✓
+8000 |    2 |    1 |   20 |   10 | Fraude    | Fraude    | 0.993 | ✓
+  75 |   16 |    0 |    2 |  450 | Legítima  | Legítima  | 0.008 | ✓
+3500 |    1 |    1 |   18 |    5 | Fraude    | Fraude    | 0.966 | ✓
+ 200 |   12 |    0 |    4 |  280 | Legítima  | Legítima  | 0.024 | ✓
+7500 |    4 |    1 |   25 |   15 | Fraude    | Fraude    | 0.995 | ✓
+  90 |   15 |    0 |    3 |  600 | Legítima  | Legítima  | 0.006 | ✓
+4200 |    0 |    1 |   22 |    8 | Fraude    | Fraude    | 0.984 | ✓
+ 150 |   11 |    0 |    6 |  320 | Legítima  | Legítima  | 0.027 | ✓
+6800 |   23 |    1 |   17 |   12 | Fraude    | Fraude    | 0.953 | ✓
+  80 |   13 |    0 |    4 |  500 | Legítima  | Legítima  | 0.010 | ✓
+9200 |    2 |    1 |   30 |    7 | Fraude    | Fraude    | 0.999 | ✓
+ 110 |   17 |    0 |    5 |  400 | Legítima  | Legítima  | 0.013 | ✓
+5500 |    1 |    1 |   19 |   20 | Fraude    | Fraude    | 0.984 | ✓
+
+=== PREDICCIONES EN NUEVOS DATOS ===
+Mont | Hora | Ubic | Freq | Edad | Predicción | Probabilidad | Nivel de Riesgo
+---------------------------------------------------------------------------
+10000 |    2 |    1 |   35 |    5 | Fraude    |       0.999 | Muy Alto
+  45 |   12 |    0 |    2 |  800 | Legítima  |       0.003 | Muy Bajo
+2000 |   15 |    1 |    8 |   60 | Fraude    |       0.665 | Alto
+  85 |   20 |    0 |    4 |  200 | Legítima  |       0.019 | Muy Bajo
+
+=== ESTADÍSTICAS DEL MODELO ===
+Precisión: 1.000
+Recall: 1.000
+F1-Score: 1.000
+Verdaderos Positivos: 15
+Falsos Positivos: 0
+Verdaderos Negativos: 15
+Falsos Negativos: 0
+
+=== INFORMACIÓN SOBRE FUNCIÓN SIGMOIDAL ===
+La función sigmoidal es ideal para clasificación binaria porque:
+- Tiene rango (0, 1), interpretable como probabilidad
+- Es suave y diferenciable en todo su dominio
+- Fórmula: σ(x) = 1/(1 + e^(-x))
+- Derivada: σ'(x) = σ(x) * (1 - σ(x))
+- Umbral natural en 0.5 para clasificación
