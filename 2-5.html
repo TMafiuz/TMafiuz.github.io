@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redes Neuronales Convolucionales CNN - Infografía</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        .team-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+        }
+
+        h2 {
+            color: #764ba2;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .case-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .case-number {
+            font-size: 3em;
+            font-weight: bold;
+            opacity: 0.3;
+            margin-bottom: 10px;
+        }
+
+        .case-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .case-level {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .case-metric {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .results-table th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+
+        .results-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .success {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .warning {
+            color: #ff9800;
+            font-weight: bold;
+        }
+
+        .methodology {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .methodology h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .phase {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .phase:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-5px);
+        }
+
+        .phase-number {
+            font-size: 2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .conclusions {
+            background: #2c3e50;
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .conclusions h2 {
+            color: #ffeb3b;
+            border-bottom-color: rgba(255,235,59,0.3);
+        }
+
+        .conclusion-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .conclusion-list li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .conclusion-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 20px;
+            font-size: 1.5em;
+            color: #4caf50;
+        }
+
+        .comparison {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .comparison h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .vs-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .dataset-box {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .vs-divider {
+            font-size: 3em;
+            font-weight: bold;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .tech-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vs-container {
+                grid-template-columns: 1fr;
+            }
+
+            .vs-divider {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧠 Redes Neuronales Convolucionales CNN</h1>
+            <p class="subtitle">Taller 2.5 - Inteligencia Artificial</p>
+            <div class="team-info">
+                <strong>Equipo Blinders</strong><br>
+                Universidad Andina del Cusco<br>
+                Docente: Mg. Ing. Hugo Espetia Huamanga
+            </div>
+        </header>
+
+        <div class="section">
+            <h2>📊 Introducción</h2>
+            <p>Las Redes Neuronales Convolucionales (CNN) representan uno de los pilares fundamentales del Deep Learning moderno, especialmente en el campo de la visión por computadora. Su capacidad para extraer características jerárquicas de las imágenes las ha convertido en la arquitectura de referencia para tareas de reconocimiento y clasificación visual.</p>
+            <p style="margin-top: 15px;">Este informe documenta la implementación y evaluación de <strong>seis casos de prueba progresivos</strong> que abarcan diferentes niveles de complejidad, desde datasets sintéticos básicos hasta aplicaciones del mundo real, siguiendo la metodología <strong>CRISP-DM</strong>.</p>
+        </div>
+
+        <div class="methodology">
+            <h2>🔄 Metodología CRISP-DM</h2>
+            <div class="phases">
+                <div class="phase">
+                    <div class="phase-number">1</div>
+                    <div>Comprensión del Negocio</div>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">2</div>
+                    <div>Comprensión de Datos</div>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">3</div>
+                    <div>Preparación de Datos</div>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">4</div>
+                    <div>Modelado</div>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">5</div>
+                    <div>Evaluación</div>
+                </div>
+                <div class="phase">
+                    <div class="phase-number">6</div>
+                    <div>Despliegue</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🎯 Casos de Prueba Implementados</h2>
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-number">01</div>
+                    <div class="case-title">Fashion-MNIST</div>
+                    <div class="case-level">🟢 Nivel: Fácil</div>
+                    <p>Clasificación de prendas de vestir en 10 categorías. Imágenes 28×28 píxeles en escala de grises.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">91.23%</div>
+                        <div class="success">✓ Meta: ≥85%</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-number">02</div>
+                    <div class="case-title">CIFAR-10</div>
+                    <div class="case-level">🟡 Nivel: Intermedio-Bajo</div>
+                    <p>Reconocimiento de objetos a color (32×32) en 10 clases. Mayor complejidad visual.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">74.50%</div>
+                        <div class="warning">⚠ Meta: ≥75%</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-number">03</div>
+                    <div class="case-title">SVHN</div>
+                    <div class="case-level">🟠 Nivel: Intermedio</div>
+                    <p>Street View House Numbers. Dígitos reales con variabilidad de iluminación y fondos.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">93.82%</div>
+                        <div class="success">✓ Meta: ≥85%</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-number">04</div>
+                    <div class="case-title">EMNIST</div>
+                    <div class="case-level">🔴 Nivel: Intermedio-Alto</div>
+                    <p>Caracteres manuscritos alfanuméricos. 47 clases incluyendo letras y dígitos.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">87.89%</div>
+                        <div class="success">✓ Meta: ≥80%</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-number">05</div>
+                    <div class="case-title">Tiny ImageNet</div>
+                    <div class="case-level">🟣 Nivel: Avanzado</div>
+                    <p>200 clases con Transfer Learning (MobileNetV2). Clasificación a gran escala.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">59.35%</div>
+                        <div class="warning">⚠ Meta: ≥60%</div>
+                    </div>
+                </div>
+
+                <div class="case-card">
+                    <div class="case-number">06</div>
+                    <div class="case-title">PlantVillage</div>
+                    <div class="case-level">🌿 Nivel: Aplicado</div>
+                    <p>Detección de enfermedades en plantas. 38 clases para diagnóstico agrícola automatizado.</p>
+                    <div class="case-metric">
+                        <div>Precisión alcanzada:</div>
+                        <div class="metric-value">86.03%</div>
+                        <div class="success">✓ Meta: ≥85%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison">
+            <h2>⚖️ Ejercicio Comparativo: MNIST vs SVHN</h2>
+            <p>Comparación del rendimiento de una misma arquitectura CNN en dos datasets de reconocimiento numérico para entender cómo la calidad y complejidad visual afectan el rendimiento.</p>
+            <div class="vs-container">
+                <div class="dataset-box">
+                    <h3>MNIST</h3>
+                    <p>Dígitos manuscritos limpios</p>
+                    <div class="metric-value">98.85%</div>
+                    <p style="margin-top: 10px;">Datos sintéticos controlados</p>
+                </div>
+                <div class="vs-divider">VS</div>
+                <div class="dataset-box">
+                    <h3>SVHN</h3>
+                    <p>Números reales del mundo</p>
+                    <div class="metric-value">84.94%</div>
+                    <p style="margin-top: 10px;">Variabilidad de iluminación, ángulos y fondos</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px; text-align: center;"><strong>Diferencia: ~14 puntos porcentuales</strong> - Demuestra el impacto de la complejidad de los datos en el rendimiento del modelo.</p>
+        </div>
+
+        <div class="section">
+            <h2>📈 Tabla de Resultados</h2>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Caso de Prueba</th>
+                        <th>Nivel</th>
+                        <th>Clases</th>
+                        <th>Precisión</th>
+                        <th>Meta</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fashion-MNIST</td>
+                        <td>Fácil</td>
+                        <td>10</td>
+                        <td>91.23%</td>
+                        <td>≥85%</td>
+                        <td class="success">✓ Alcanzado</td>
+                    </tr>
+                    <tr>
+                        <td>CIFAR-10</td>
+                        <td>Intermedio-Bajo</td>
+                        <td>10</td>
+                        <td>74.50%</td>
+                        <td>≥75%</td>
+                        <td class="warning">⚠ -0.50%</td>
+                    </tr>
+                    <tr>
+                        <td>SVHN</td>
+                        <td>Intermedio</td>
+                        <td>10</td>
+                        <td>93.82%</td>
+                        <td>≥85%</td>
+                        <td class="success">✓ Alcanzado</td>
+                    </tr>
+                    <tr>
+                        <td>EMNIST</td>
+                        <td>Intermedio-Alto</td>
+                        <td>47</td>
+                        <td>87.89%</td>
+                        <td>≥80%</td>
+                        <td class="success">✓ Alcanzado</td>
+                    </tr>
+                    <tr>
+                        <td>Tiny ImageNet</td>
+                        <td>Avanzado</td>
+                        <td>200</td>
+                        <td>59.35%</td>
+                        <td>≥60%</td>
+                        <td class="warning">⚠ -0.65%</td>
+                    </tr>
+                    <tr>
+                        <td>PlantVillage</td>
+                        <td>Aplicado</td>
+                        <td>38</td>
+                        <td>86.03%</td>
+                        <td>≥85%</td>
+                        <td class="success">✓ Alcanzado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="conclusions">
+            <h2>💡 Conclusiones Clave</h2>
+            <ul class="conclusion-list">
+                <li><strong>Alto desempeño general:</strong> 4 de 6 casos alcanzaron satisfactoriamente sus métricas de éxito, con dos casos marginalmente por debajo del objetivo.</li>
+                <li><strong>Impacto de la complejidad visual:</strong> La naturaleza de los datos afecta significativamente el rendimiento, como lo demuestra la diferencia de 14% entre MNIST y SVHN con la misma arquitectura.</li>
+                <li><strong>Efectividad del Transfer Learning:</strong> MobileNetV2 permitió resultados competitivos en datasets complejos (Tiny ImageNet y PlantVillage) con 200 y 38 clases respectivamente.</li>
+                <li><strong>Regularización crucial:</strong> Batch Normalization, Dropout y Data Augmentation fueron determinantes para mejorar la generalización y prevenir sobreajuste.</li>
+                <li><strong>Aplicabilidad práctica:</strong> Los modelos tienen aplicaciones reales en moda, OCR, diagnóstico agrícola, reconocimiento de matrículas y clasificación de objetos.</li>
+                <li><strong>Metodología robusta:</strong> CRISP-DM garantizó un flujo de trabajo sistemático y reproducible, esencial para proyectos profesionales de ML.</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Stack Tecnológico</h2>
+            <div class="tech-stack">
+                <span class="tech-badge">TensorFlow / Keras</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">NumPy</span>
+                <span class="tech-badge">Matplotlib</span>
+                <span class="tech-badge">CNN</span>
+                <span class="tech-badge">Transfer Learning</span>
+                <span class="tech-badge">MobileNetV2</span>
+                <span class="tech-badge">Data Augmentation</span>
+                <span class="tech-badge">Batch Normalization</span>
+                <span class="tech-badge">Dropout</span>
+            </div>
+        </div>
+
+        <footer>
+            <h3>Equipo Blinders 👓</h3>
+            <p>Paredes Puma, Jairo Nahuel • Rojas Cornejo, Abel Edson<br>
+            Salas Challco, Luis Marin (SM) • Segovia Palacios, Mark Joel</p>
+            <p style="margin-top: 15px; color: #667eea;">
+                Universidad Andina del Cusco - Cusco, Perú 2025-II
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
